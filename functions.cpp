@@ -11,6 +11,8 @@ using namespace std;
 const int GAUCHE = 7, DROITE = 4, HAUT = 8, BAS = 2;
 typedef vector<vector<int>> Plateau;
 
+int QUATRE = 0; // Variable utilisée dans le calcul du score (voir fonction)
+
 // Prototypes des fonctions
 int tireDeuxOuQuatre();
 Plateau ajouteDeuxOuQuatre(Plateau plateau);
@@ -71,6 +73,7 @@ int tireDeuxOuQuatre(){
     if (i < 9){
         return 2;
     } else {
+        QUATRE += 1;
         return 4;
     }
 }
@@ -207,6 +210,33 @@ Plateau deplacement(Plateau plateau, int direction){
     return plateau;
 }
 
+/** Fonction score
+ * Permet de calculer le score d'un plateau donné
+ * Utilise la variable globale QUATRE
+ * 
+ * @param plateau la grille de jeu
+ * @return int s le score obtenu pour la grille donné
+ **/
+int score(Plateau plateau){
+    int s = 0;
+    int mult, nbr_case;
+    for (int i = 0; i < 4; i++){
+        for (int j = 0; j < 4; j++){
+            if (plateau[i][j] != 0 && plateau[i][j] != 2){
+                nbr_case = 4;
+                mult = 1;
+                while (nbr_case != plateau[i][j]){
+                    mult += 1;
+                    cout << nbr_case << " " << plateau[i][j] << " " << mult << endl;
+                    nbr_case = nbr_case * 2;
+                }
+                s = s + nbr_case * mult;
+            }
+        }
+    }
+    s = s - (4 * QUATRE);  // On soustrait les quatres qui apparaissent sur la grille
+    return s;
+}
 
 /********************************************************************************/ 
 /**************************** TEST DES FONCTIONS ********************************/
@@ -326,11 +356,12 @@ int main(int argc, char const *argv[])
     srand((int)time(0));
 
     Plateau plateau = {
-        {0,0,0,0},
-        {0,0,0,0},
-        {0,0,0,0},
+        {0,0,0,2},
+        {2,0,2,0},
+        {0,0,0,8},
         {0,0,0,0}
     };
+    cout << score(plateau) << endl;
     plateau = ajouteDeuxOuQuatre(plateau);
     affichePlateau(plateau);
     /*
