@@ -8,7 +8,7 @@
 
 using namespace std;
 
-const int GAUCHE = 7, DROITE = 4, HAUT = 8, BAS = 2;
+const int GAUCHE = 113, DROITE = 100, HAUT = 122, BAS = 115;
 typedef vector<vector<int>> Plateau;
 
 int QUATRE = 0; // Variable utilisée dans le calcul du score (voir fonction)
@@ -206,6 +206,8 @@ Plateau deplacement(Plateau plateau, int direction){
         plateau = deplacementBas(plateau);
     } else if (direction == DROITE){
         plateau = deplacementDroite(plateau);
+    } else {
+        return plateau;
     }
     return plateau;
 }
@@ -227,7 +229,6 @@ int score(Plateau plateau){
                 mult = 1;
                 while (nbr_case != plateau[i][j]){
                     mult += 1;
-                    cout << nbr_case << " " << plateau[i][j] << " " << mult << endl;
                     nbr_case = nbr_case * 2;
                 }
                 s = s + nbr_case * mult;
@@ -237,6 +238,135 @@ int score(Plateau plateau){
     s = s - (4 * QUATRE);  // On soustrait les quatres qui apparaissent sur la grille
     return s;
 }
+
+/** Fonction plateauVide
+ * créée un plateau de jeu vide
+ * @return le plateau de type Plateau
+ **/
+Plateau plateauVide(){
+	Plateau plateau;
+	plateau= Plateau(4);
+	vector<int> lignes;
+	lignes= vector<int>(4);
+	for(int i=0; i<plateau.size(); i++){
+		for(int j=0; j<lignes.size(); j++){
+			lignes[j]=0;
+		}
+		plateau[i]=lignes;
+	}
+	return plateau;
+}
+
+/** Fonction plateauInitial
+ * Initialise le plateau
+ * @param plateau le plateau de jeu vide
+ * @return le plateau de jeu initialisé
+*/
+Plateau plateauInitial(Plateau plateau){
+	plateau = ajouteDeuxOuQuatre(plateau);
+	plateau = ajouteDeuxOuQuatre(plateau);
+	return plateau;
+}
+
+/** Fonction afficheLignePLeine
+ * Affiche une ligne pleine de "*"
+ **/
+void afficheLignePleine(){
+	for(int i=0; i<25; i++){
+		cout << "*";
+	}
+	cout << endl;
+}
+
+/** Fonction afficheLigneNombre
+ * Affiche une ligne de nombre
+ * @param line la ligne a traiter
+*/
+void afficheLigneNombre(vector<int> line){
+	cout << "*";
+	for(int i=0; i<4; i++){
+		if(line[i]==0){
+			cout << "     *";
+		}else if (line[i]<10){
+			cout << "  " << line[i] << "  *";
+		}else if(line[i]<100){
+			cout << " " << line[i] << "  *";
+		}else if(line[i]<1000){
+			cout << " " << line[i] << " *";
+		}else if(line[i]<10000){
+			cout << " " << line[i] << "*";
+		}else{
+			cout << line[i] << "*";	
+		}
+	}
+	cout << endl;
+}
+
+/** Fonction dessine
+ * affiche le plateau de jeu
+ * @param plateau le plateau de jeu
+ **/
+void dessine(Plateau plateau){
+	afficheLignePleine();
+	for(int i=0; i<4;i++){
+		afficheLigneNombre(plateau[i]);
+		afficheLignePleine();
+	}
+}
+
+/** Fonction estGagnant
+ * vérifie si la partie est gagnante
+ * @param p le plateau de jeu
+ * @return true si la partie est gagnée, false sinon
+ **/
+bool estGagnant(Plateau p){
+	for(int i=0; i<4; i++){
+		for(int j=0; j<4; j++){
+			if(p[i][j]==2048){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+
+/**
+ * Vérifie si la partie est terminée
+ * @param plateau le plateau de jeu
+ * @return true si la partie est terminée, false sinon
+*/
+bool estTermine(Plateau p){
+	for (int i=0; i<4; i++){
+		for(int j=0; j<4; j++){
+			if(p[i][j]==0){
+				return false;
+			}
+			if(i-1>-1){
+				if(p[i-1][j]==p[i][j]){
+					return false;
+				}
+			}
+			if(i+1<4){
+				if(p[i+1][j]==p[i][j]){
+					return false;
+				}
+			}
+			if(j+1<4){
+				if(p[i][j+1]==p[i][j]){
+					return false;
+				}
+			}
+			if(j-1>-1){
+				if(p[i][j-1]==p[i][j]){
+					return false;
+				}
+			}
+		}
+	}
+	return true;
+}
+
 
 /********************************************************************************/ 
 /**************************** TEST DES FONCTIONS ********************************/
@@ -345,6 +475,12 @@ void testDeplacement(){
     assert( deplacement(plt, BAS)    == plt_bas    );
 }
 
+void testEstTermine(){
+	cout << estTermine({{4,2,4,2},{2,8,64,16},{8,16,4,2},{2,4,8,4}}) << endl;
+	assert(not(estTermine({{2,2,2,4},{4,2,4,2},{2,4,2,4},{4,2,0,2}})));
+	assert(not(estTermine({{2,4,2,4},{4,2,4,2},{2,4,2,4},{4,2,2,2}})));
+}
+
 /********************************************************************************/
 /********************************************************************************/ 
 
@@ -352,9 +488,10 @@ void testDeplacement(){
 
 int main(int argc, char const *argv[])
 {
+    testEstTermine();
     // Initialisation du temps pour l'aléatoire
     srand((int)time(0));
-
+/*
     Plateau plateau = {
         {0,0,0,2},
         {2,0,2,0},
@@ -364,7 +501,7 @@ int main(int argc, char const *argv[])
     cout << score(plateau) << endl;
     plateau = ajouteDeuxOuQuatre(plateau);
     affichePlateau(plateau);
-    /*
+    
     char touche;
     int direction;
     cin >> touche;
@@ -387,6 +524,39 @@ int main(int argc, char const *argv[])
         cin >> touche;
     }
     */
+   bool jeu = true;
+   string touche;
+   int touche_int;
+   Plateau plateau;
+   do
+   {
+       plateau = plateauVide();
+       plateau = plateauInitial(plateau);
+       while (not estGagnant(plateau) &&  not estTermine(plateau)){
+           dessine(plateau);
+           cout << "Entrer commande (z/q/s/d) >>";
+           cin >> touche;
+           cout << endl;
+           touche_int = (int)touche[0];
+           if (plateau == deplacement(plateau, touche_int)){
+               cout << "Entrée invalide" << endl;
+           } else {
+               plateau = deplacement(plateau, touche_int);
+               plateau = ajouteDeuxOuQuatre(plateau);
+           }
+       }
+       
+
+        string rejouer;
+        cout << "Rejouer ? (y/n) >>" << endl;
+        cin >> rejouer;
+        if (rejouer[0] == 'y'){
+            jeu = true;
+        } else if (rejouer[0] == 'n'){
+            jeu = false;
+        }
+   } while (jeu == true);
+   
     
     return 0;
 }

@@ -3,13 +3,14 @@ using namespace std;
 #include <vector>
 #include <cstdlib>
 #include <time.h>
+#include <assert.h>
 
 typedef vector<vector<int> > Plateau;
 
-/*
-//cette fonction créée un plateau de jeu vide
-//@return le plateau de type Plateau
-*/
+/** Fonction plateauVide
+ * créée un plateau de jeu vide
+ * @return le plateau de type Plateau
+ **/
 Plateau plateauVide(){
 	Plateau plateau;
 	plateau= Plateau(4);
@@ -24,20 +25,20 @@ Plateau plateauVide(){
 	return plateau;
 }
 
-/*
-//Cette fonction initialise le plateau
-//@param plateau le plateau de jeu vide
-//@return le plateau de jeu initialisé
-*/
+/** Fonction plateauInitial
+ * Initialise le plateau
+ * @param plateau le plateau de jeu vide
+ * @return le plateau de jeu initialisé
+ **/
 Plateau plateauInitial(Plateau plateau){
 	plateau = ajouteDeuxOuQuatre(plateau);
 	plateau = ajouteDeuxOuQuatre(plateau);
 	return plateau;
 }
 
-/*
-//cette fonction sert a afficher une ligne pleine de "*"
-*/
+/** Fonction afficheLignePLeine
+ * Affiche une ligne pleine de "*"
+ **/
 void afficheLignePleine(){
 	for(int i=0; i<25; i++){
 		cout << "*";
@@ -98,8 +99,8 @@ bool estGagnant(Plateau p){
 }
 
 void testEstGagnant(){
-	CHECK ( not(estGagnant({{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}})))
-	CHECK ( estGagnat({{2,2,2,2},{2,2048,2,2},{2,2,2,2},{2,2,2,2}}))
+	assert ( not(estGagnant({{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}})))
+	assert ( estGagnat({{2,2,2,2},{2,2048,2,2},{2,2,2,2},{2,2,2,2}}))
 }
 
 /*
