@@ -477,6 +477,9 @@ void testDeplacementBas(){
     assert( deplacementBas(plt2) == plt2_bas );
 }
 
+/**
+ * Test de la fonction Deplacement
+ **/
 void testDeplacement(){
     Plateau plt        = { {0,2,0,0}, {0,4,0,4}, {0,8,0,0}, {2,2,0,2} };
     Plateau plt_gauche = { {2,0,0,0}, {8,0,0,0}, {8,0,0,0}, {4,2,0,0} };
@@ -489,10 +492,48 @@ void testDeplacement(){
     assert( deplacement(plt, BAS)    == plt_bas    );
 }
 
+/**
+ * Test de la fonction estTermine
+ **/
 void testEstTermine(){
-	assert(estTermine({{4,32,2,4},{2,4,128,8},{8,16,32,2},{2,4,16,4}}));
-	assert(not(estTermine({{2,2,2,4},{4,2,4,2},{2,4,2,4},{4,2,0,2}})));
+	assert(estTermine({{2,4,2,4},{4,2,4,2},{2,4,2,4},{4,2,4,2}}));
+	assert(not(estTermine({{2,4,2,4},{4,2,4,2},{2,4,2,4},{4,2,0,2}})));
 	assert(not(estTermine({{2,4,2,4},{4,2,4,2},{2,4,2,4},{4,2,2,2}})));
+}
+
+/**
+ * Test de la fonction estGagnant
+ **/
+void testEstGagnant(){
+	Plateau plt0={{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
+	Plateau plt1={{2,2,2,2},{2,2048,2,2},{2,2,2,2},{2,2,2,2}};
+	assert ( not(estGagnant(plt0)));
+	assert ( estGagnant(plt1));
+}
+
+/**
+ * Test de la fonction plateauInitial
+ **/
+void testPlateauInitial(){
+	Plateau plt = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
+	Plateau traite = plateauInitial();
+	int compt= 0;
+	for ( int i = 0 ; i < 4 ; i++){
+		for ( int j = 0 ; j < 4 ; j++){
+			if(traite[i][j] == 2 or traite[i][j] == 4){
+				compt += 1;
+			}
+		}
+	}
+	assert (compt == 2);
+}
+
+/**
+ ** Test de la fonction plateauVide
+ **/
+void testPlateauVide(){
+	Plateau plt3={{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
+	assert(plateauVide()==plt3);
 }
 
 /********************************************************************************/

@@ -33,3 +33,7 @@ void testDeplacementDroite();
 void testDeplacementHaut();
 void testDeplacementBas();
 void testDeplacement();
+void testEstTermine();
+void testPlateauInitial();
+void testEstGagnant();
+void testPlateauVide();
