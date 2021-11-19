@@ -5,6 +5,7 @@
 #include <time.h>
 #include <conio.h> // Pour getch() (à voir plus tard)
 #include "modele.h"
+#include <string>
 
 int QUATRE = 0;
 
@@ -252,37 +253,51 @@ Plateau plateauInitial(){
 
 /** Fonction afficheLignePLeine
  * Affiche une ligne pleine de "*"
+ * @return une ligne de type string
  **/
-void afficheLignePleine(){
+string afficheLignePleine(){
+    string l = "";
 	for(int i=0; i<25; i++){
-		cout << "*";
+		l += "*";
 	}
-	cout << endl;
+	l += "\n";
+    return l;
 }
 
 
 /** Fonction afficheLigneNombre
  * Affiche une ligne de nombre
  * @param line la ligne a traiter
+ * @return une ligne de type string
 */
-void afficheLigneNombre(vector<int> line){
-	cout << "*";
+string afficheLigneNombre(vector<int> line){
+    string l = "*";
 	for(int i=0; i<4; i++){
 		if(line[i]==0){
-			cout << "     *";
+			l += "     *";
 		}else if (line[i]<10){
-			cout << "  " << line[i] << "  *";
+			l += "  "; 
+            l += to_string(line[i]);
+            l += "  *";
 		}else if(line[i]<100){
-			cout << " " << line[i] << "  *";
+			l += " ";
+            l += to_string(line[i]);
+            l += "  *";
 		}else if(line[i]<1000){
-			cout << " " << line[i] << " *";
+			l += " ";
+            l += to_string(line[i]);
+            l += " *";
 		}else if(line[i]<10000){
-			cout << " " << line[i] << "*";
+			l += " ";
+            l += to_string(line[i]);
+            l += "*";
 		}else{
-			cout << line[i] << "*";	
+			l += to_string(line[i]);
+            l += "*";
 		}
 	}
-	cout << endl;
+	l += "\n";
+    return l;
 }
 
 
@@ -367,10 +382,11 @@ bool estRempli(Plateau plateau){
  * @param plateau le plateau de jeu
  **/
 void dessine(Plateau plateau){
-	afficheLignePleine();
+
+	cout << afficheLignePleine();
 	for(int i=0; i<4;i++){
-		afficheLigneNombre(plateau[i]);
-		afficheLignePleine();
+		cout << afficheLigneNombre(plateau[i]);
+		cout << afficheLignePleine();
 	}
 }
 
