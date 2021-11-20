@@ -3,11 +3,11 @@
 #include <assert.h>
 #include <cmath>
 #include <time.h>
-#include <conio.h> // Pour getch() (à voir plus tard)
 #include "modele.h"
 #include <string>
+#include <ncurses.h>
 
-int QUATRE = 0;
+using namespace std;
 
 /** Fonction plateauVide
  * créée un plateau de jeu vide
@@ -42,7 +42,6 @@ int tireDeuxOuQuatre(){
     if (i < 9){
         return 2;
     } else {
-        QUATRE += 1;
         return 4;
     }
 }
@@ -202,6 +201,7 @@ Plateau deplacement(Plateau plateau, int direction) {
     case BAS:
       return deplacementBas(plateau);
     default:
+      endwin();
       cerr << "Deplacement non-autorise!" << endl;
       exit(-1);
   }
@@ -216,7 +216,7 @@ Plateau deplacement(Plateau plateau, int direction) {
  * @param quatre le nombre de quatre ajoutés au hasard par tireDeuxOuQuatre
  * @return int s le score obtenu pour la grille donné
  **/
-int score(Plateau plateau){
+int score(Plateau plateau, int quatre){
     int s = 0;
     int mult, nbr_case;
     for (int i = 0; i < 4; i++){
@@ -232,7 +232,7 @@ int score(Plateau plateau){
             }
         }
     }
-    s = s - (4 * QUATRE);  // On soustrait les quatres qui apparaissent sur la grille
+    s = s - (4 * quatre);  // On soustrait les quatres qui apparaissent sur la grille
     return s;
 }
 
@@ -377,17 +377,19 @@ bool estRempli(Plateau plateau){
 }
 
 
+
 /**
  * Affiche le plateau de jeu
  * @param plateau le plateau de jeu
  **/
 void dessine(Plateau plateau){
-
-	cout << afficheLignePleine();
+    string dessin = "";
+	dessin += afficheLignePleine();
 	for(int i=0; i<4;i++){
-		cout << afficheLigneNombre(plateau[i]);
-		cout << afficheLignePleine();
+		dessin += afficheLigneNombre(plateau[i]);
+		dessin += afficheLignePleine();
 	}
+    dessineCouleur(dessin);
 }
 
 

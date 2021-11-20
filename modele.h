@@ -1,9 +1,8 @@
 #include <vector>
 using namespace std;
 
-extern int QUATRE;
 
-const int GAUCHE = 113, DROITE = 100, HAUT = 122, BAS = 115;
+const int GAUCHE = 260, DROITE = 261, HAUT = 259, BAS = 258;
 typedef vector<vector<int>> Plateau;
 
 
@@ -21,8 +20,9 @@ Plateau deplacement(Plateau plateau, int direction);
 void dessine(Plateau plateau);
 bool estTermine(Plateau plateau);
 bool estGagnant(Plateau plateau);
-int score(Plateau plateau);
+int score(Plateau plateau, int quatre);
 bool estRempli(Plateau plateau);
+void dessineCouleur(string plateau);
 
 
 // Les fonctions de test
