@@ -55,16 +55,20 @@ int tireDeuxOuQuatre(){
  * @param plateau le plateau à modifier
  * @return le plateau avec une nouvelle case remplie
  **/
-Plateau ajouteDeuxOuQuatre(Plateau plateau){
+Plateau ajouteDeuxOuQuatre(Partie plateau){
     int a, b;
     a = rand()%4;
     b = rand()%4;
-    while (plateau[a][b] != 0){
+    while (plateau.plateau[a][b] != 0){
         a = rand()%4;
         b = rand()%4;
     }
-    plateau[a][b] = tireDeuxOuQuatre();
-    return plateau;
+    int n = tireDeuxOuQuatre();
+    if (n == 4){
+        plateau.quatre += 1;
+    }
+    plateau.plateau[a][b] = n;
+    return plateau.plateau;
 }
 
 

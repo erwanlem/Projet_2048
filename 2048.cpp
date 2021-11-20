@@ -5,6 +5,7 @@
 
 using namespace std;
 
+
 struct Partie {
     int score;
     Plateau plateau;
@@ -36,7 +37,7 @@ int main(int argc, char const *argv[])
             touche = getch();
             plateau.plateau = deplacement(plateau.plateau, (int)touche);
             if ( !estRempli(plateau.plateau) ){
-                plateau.plateau = ajouteDeuxOuQuatre(plateau.plateau);
+                plateau.plateau = ajouteDeuxOuQuatre(plateau);
             }
             dessine(plateau.plateau);
             refresh();
