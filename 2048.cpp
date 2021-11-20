@@ -4,7 +4,6 @@
 
 using namespace std;
 
-<<<<<<< HEAD
 
 struct Partie {
     int score;
@@ -12,8 +11,6 @@ struct Partie {
     int quatre;
 };
 
-=======
->>>>>>> parent of d85094f (Niveau 1 - Avance)
 
 int main(int argc, char const *argv[])
 {
@@ -27,7 +24,6 @@ int main(int argc, char const *argv[])
 
     do
     {
-<<<<<<< HEAD
         plateau.plateau = plateauVide();
         plateau.plateau = plateauInitial();
         plateau.quatre  = 0;
@@ -39,22 +35,6 @@ int main(int argc, char const *argv[])
             plateau.plateau = deplacement(plateau.plateau, (int)touche);
             if ( !estRempli(plateau.plateau) ){
                 plateau.plateau = ajouteDeuxOuQuatre(plateau);
-=======
-        plateau = plateauVide();
-        plateau = plateauInitial();
-        s = 0;
-        quatre  = 0;
-        while ( !estGagnant(plateau) &&  !estTermine(plateau) ){
-            cout << "\nScore: " << score(plateau) << "\n\n";
-            dessine(plateau);
-            cout << "\nEntrer commande (z/q/s/d) >>";
-            cin  >> touche;
-            cout << endl;
-            touche_int = (int)touche[0];
-            plateau    = deplacement(plateau, touche_int);
-            if ( !estRempli(plateau) ){
-                plateau = ajouteDeuxOuQuatre(plateau);
->>>>>>> parent of d85094f (Niveau 1 - Avance)
             }
        }
        dessine(plateau);
