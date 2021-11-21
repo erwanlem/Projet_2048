@@ -1,9 +1,15 @@
 #include <vector>
 using namespace std;
 
-
 const int GAUCHE = 260, DROITE = 261, HAUT = 259, BAS = 258;
 typedef vector<vector<int>> Plateau;
+
+
+struct Partie {
+    int score;
+    Plateau plateau;
+    int deplacements;
+};
 
 
 Plateau plateauVide();

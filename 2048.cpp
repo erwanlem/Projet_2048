@@ -6,12 +6,6 @@
 using namespace std;
 
 
-struct Partie {
-    int score;
-    Plateau plateau;
-    int quatre;
-};
-
 
 int main(int argc, char const *argv[])
 {
@@ -29,15 +23,16 @@ int main(int argc, char const *argv[])
     {
         plateau.plateau = plateauVide();
         plateau.plateau = plateauInitial();
-        plateau.quatre  = 0;
+        plateau.deplacements  = 0;
         while ( !estGagnant(plateau.plateau) &&  !estTermine(plateau.plateau) ){
             clear();
-            printw("Score: %d\n\n",score(plateau.plateau, plateau.quatre));
+            printw("Score: %d\n\n",score(plateau.plateau, plateau.deplacements));
             dessine(plateau.plateau);
             touche = getch();
             plateau.plateau = deplacement(plateau.plateau, (int)touche);
+            plateau.deplacements += 1;
             if ( !estRempli(plateau.plateau) ){
-                plateau.plateau = ajouteDeuxOuQuatre(plateau);
+                plateau.plateau = ajouteDeuxOuQuatre(plateau.plateau);
             }
             dessine(plateau.plateau);
             refresh();

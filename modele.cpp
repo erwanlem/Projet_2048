@@ -55,20 +55,17 @@ int tireDeuxOuQuatre(){
  * @param plateau le plateau à modifier
  * @return le plateau avec une nouvelle case remplie
  **/
-Plateau ajouteDeuxOuQuatre(Partie plateau){
+Plateau ajouteDeuxOuQuatre(Plateau plateau){
     int a, b;
     a = rand()%4;
     b = rand()%4;
-    while (plateau.plateau[a][b] != 0){
+    while (plateau[a][b] != 0){
         a = rand()%4;
         b = rand()%4;
     }
     int n = tireDeuxOuQuatre();
-    if (n == 4){
-        plateau.quatre += 1;
-    }
-    plateau.plateau[a][b] = n;
-    return plateau.plateau;
+    plateau[a][b] = n;
+    return plateau;
 }
 
 
@@ -220,11 +217,15 @@ Plateau deplacement(Plateau plateau, int direction) {
  * @param quatre le nombre de quatre ajoutés au hasard par tireDeuxOuQuatre
  * @return int s le score obtenu pour la grille donné
  **/
-int score(Plateau plateau, int quatre){
+int score(Plateau plateau, int deplacements){
     int s = 0;
     int mult, nbr_case;
+    int deux = 0;
     for (int i = 0; i < 4; i++){
         for (int j = 0; j < 4; j++){
+            if (plateau[i][j] == 2){
+                deux += 1;
+            }
             if (plateau[i][j] != 0 && plateau[i][j] != 2){
                 nbr_case = 4;
                 mult = 1;
@@ -232,11 +233,12 @@ int score(Plateau plateau, int quatre){
                     mult += 1;
                     nbr_case = nbr_case * 2;
                 }
+                deux += nbr_case/2;
                 s = s + nbr_case * mult;
             }
         }
     }
-    s = s - (4 * quatre);  // On soustrait les quatres qui apparaissent sur la grille
+    s = s - (4 * (deux-(deplacements+2)));
     return s;
 }
 
