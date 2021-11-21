@@ -1,6 +1,7 @@
 #include <iostream>
 #include <time.h>
 #include "modele.h"
+#include <ncurses.h>
 
 using namespace std;
 
@@ -17,10 +18,12 @@ int main(int argc, char const *argv[])
     // Initialisation du temps pour l'aléatoire
     srand((int)time(0));
 
+    initscr();
+    keypad(stdscr, true);
+
     bool jeu = true;
-    int touche_int, quatre, s;
-    string touche;
-    Plateau plateau;
+    int touche, quatre, s;
+    Partie plateau;
 
     do
     {
@@ -36,12 +39,13 @@ int main(int argc, char const *argv[])
             if ( !estRempli(plateau.plateau) ){
                 plateau.plateau = ajouteDeuxOuQuatre(plateau);
             }
+            dessine(plateau.plateau);
+            refresh();
        }
-       dessine(plateau);
-       if (estGagnant(plateau)){
-           cout << "Vous avez gagné !" << endl;
+       if (estGagnant(plateau.plateau)){
+           printw("Vous aez gagné !\n");
        } else {
-           cout << "Vous avez perdu !" << endl;
+           printw("Oups... Vous avez perdu\n");
        }
        
 
@@ -54,7 +58,8 @@ int main(int argc, char const *argv[])
             jeu = false;
         }
     } while (jeu == true);
-   
+
+    endwin();
     return 0;
 }
 

@@ -1,26 +1,22 @@
-#include <curses.h>
+#include <iostream>
+#include <vector>
+#include "modele.h"
+#include <ncurses.h>
+
+using namespace std;
 
 
 void dessineCouleur(string plateau){
-    initscr();
     start_color();
     init_pair(1, COLOR_RED, COLOR_BLACK);
-    attron(COLOR_PAIR(1));
-    printw(plateau);
-    attoff(COLOR_PAIR(1));
-    endwin();
-}
-
-
-int main() {
-    int c;
-    initscr();
-    keypad(stdscr, true);
-    printw("Bonjour!\nIl est temps de presser quelques touches au clavier...\n");
-    do {
-        c = getch();
-        addch(c);
-    } while (c != KEY_UP);
-    endwin();
-    return 0;
+	init_pair(2, COLOR_GREEN, COLOR_BLACK);
+	for (int i = 0; i < plateau.size(); i++){
+		int j = 1;
+		if (plateau[i] == '*'){
+			j = 2;
+		}
+		attron(COLOR_PAIR(j));
+		printw("%c", plateau[i]);
+		attroff(COLOR_PAIR(j));
+	}
 }
