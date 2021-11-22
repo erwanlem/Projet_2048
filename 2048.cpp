@@ -26,28 +26,32 @@ int main(int argc, char const *argv[])
         plateau.deplacements  = 0;
         while ( !estGagnant(plateau.plateau) &&  !estTermine(plateau.plateau) ){
             clear();
-            printw("Score: %d\n\n",score(plateau.plateau, plateau.deplacements));
+            printw("Utiliser les flèches pour jouer\nTaper sur les autres touches pour quitter\n\n\n\tScore: %d\n\n",score(plateau.plateau, plateau.deplacements));
             dessine(plateau.plateau);
             touche = getch();
-            plateau.plateau = deplacement(plateau.plateau, (int)touche);
-            plateau.deplacements += 1;
+            Plateau p = deplacement(plateau.plateau, (int)touche);
+            if (p != plateau.plateau){
+                plateau.deplacements += 1;
+                plateau.plateau = p;
+            }
             if ( !estRempli(plateau.plateau) ){
                 plateau.plateau = ajouteDeuxOuQuatre(plateau.plateau);
             }
-            dessine(plateau.plateau);
             refresh();
        }
+       clear();
+       dessine(plateau.plateau);
        if (estGagnant(plateau.plateau)){
-           printw("Vous aez gagné !\n");
+           printw("\n\n\tVous avez gagné !\nVous pouvez continuer de jouer...\n");
        } else {
-           printw("Oups... Vous avez perdu\n");
+           printw("\nOups... Vous avez perdu\n");
        }
        
 
-        string rejouer;
-        cout << "Rejouer ? (y/n) >>" << endl;
-        cin  >> rejouer;
-        if (rejouer[0] == 'y'){
+        int rejouer;
+        printw("Rejouer ? (y/n)");
+        rejouer = getch();
+        if ((int)rejouer == 121){
             jeu = true;
         } else {
             jeu = false;

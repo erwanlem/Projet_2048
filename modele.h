@@ -1,7 +1,7 @@
 #include <vector>
 using namespace std;
 
-const int GAUCHE = 260, DROITE = 261, HAUT = 259, BAS = 258;
+const int GAUCHE = 260, DROITE = 261, HAUT = 259, BAS = 258, QUITTER = 27;
 typedef vector<vector<int>> Plateau;
 
 
@@ -43,3 +43,4 @@ void testEstTermine();
 void testPlateauInitial();
 void testEstGagnant();
 void testPlateauVide();
+void testScore();

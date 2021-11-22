@@ -203,7 +203,7 @@ Plateau deplacement(Plateau plateau, int direction) {
       return deplacementBas(plateau);
     default:
       endwin();
-      cerr << "Deplacement non-autorise!" << endl;
+      cerr << "Merci d'avoir joué! Au revoir!" << endl;
       exit(-1);
   }
 }
@@ -389,12 +389,15 @@ bool estRempli(Plateau plateau){
  * @param plateau le plateau de jeu
  **/
 void dessine(Plateau plateau){
-    string dessin = "";
+    string dessin = "\t";
 	dessin += afficheLignePleine();
 	for(int i=0; i<4;i++){
+        dessin += "\t";
 		dessin += afficheLigneNombre(plateau[i]);
+        dessin += "\t";
 		dessin += afficheLignePleine();
 	}
+    dessin += "\t";
     dessineCouleur(dessin);
 }
 
@@ -558,6 +561,13 @@ void testPlateauInitial(){
 void testPlateauVide(){
 	Plateau plt3={{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
 	assert(plateauVide()==plt3);
+}
+
+void testScore(){
+    Plateau plt1 = {{4,0,0,0},{0,0,0,4},{0,0,0,0},{0,0,0,4}};
+    Plateau plt2 = {{4,0,0,0},{0,0,0,0},{0,0,0,2},{8,0,0,0}};
+    assert ( score(plt1, 1) == 0  );
+    assert ( score(plt2, 4) == 16 );
 }
 
 /********************************************************************************/
