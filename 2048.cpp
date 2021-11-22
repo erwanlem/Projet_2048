@@ -15,7 +15,7 @@ int main(int argc, char const *argv[])
     initscr();
     keypad(stdscr, true);
 
-    bool jeu = true;
+    bool jeu = true; 
     int touche, quatre, s;
     Partie plateau;
 
