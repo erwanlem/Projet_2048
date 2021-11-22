@@ -26,16 +26,16 @@ int main(int argc, char const *argv[])
         plateau.deplacements  = 0;
         while ( !estGagnant(plateau.plateau) &&  !estTermine(plateau.plateau) ){
             clear();
-            printw("Utiliser les flèches pour jouer\nTaper sur les autres touches pour quitter\n\n\n\tScore: %d\n\n",score(plateau.plateau, plateau.deplacements));
+            printw("Utiliser les flèches pour jouer\nCliquer sur toute autre touche pour quitter\n\n\n\tScore: %d\n\n",score(plateau.plateau, plateau.deplacements));
             dessine(plateau.plateau);
             touche = getch();
             Plateau p = deplacement(plateau.plateau, (int)touche);
+            if ( !estRempli(p) ){
+                p = ajouteDeuxOuQuatre(p);
+            }
             if (p != plateau.plateau){
                 plateau.deplacements += 1;
                 plateau.plateau = p;
-            }
-            if ( !estRempli(plateau.plateau) ){
-                plateau.plateau = ajouteDeuxOuQuatre(plateau.plateau);
             }
             refresh();
        }
