@@ -14,6 +14,7 @@ int main(int argc, char const *argv[])
 
     initscr();
     keypad(stdscr, true);
+    start_color();
 
     bool jeu = true;
     int touche, quatre, s;

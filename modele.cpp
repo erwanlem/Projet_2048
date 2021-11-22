@@ -1,10 +1,7 @@
 #include <iostream>
-#include <vector>
 #include <assert.h>
 #include <cmath>
-#include <time.h>
 #include "modele.h"
-#include <string>
 #include <ncurses.h>
 
 using namespace std;
@@ -256,18 +253,20 @@ Plateau plateauInitial(){
 	return plateau;
 }
 
+    
 
 /** Fonction afficheLignePLeine
  * Affiche une ligne pleine de "*"
  * @return une ligne de type string
  **/
-string afficheLignePleine(){
-    string l = "";
+void afficheLignePleine(){
+	init_pair(1, COLOR_WHITE, COLOR_BLACK);
 	for(int i=0; i<25; i++){
-		l += "*";
+        attron(COLOR_PAIR(1));
+		printw("*");
+        attroff(COLOR_PAIR(1));
 	}
-	l += "\n";
-    return l;
+	printw("\n");
 }
 
 
@@ -276,34 +275,53 @@ string afficheLignePleine(){
  * @param line la ligne a traiter
  * @return une ligne de type string
 */
-string afficheLigneNombre(vector<int> line){
-    string l = "*";
+void afficheLigneNombre(vector<int> line){
+    init_pair(1, COLOR_BLUE, COLOR_BLACK);
+	init_pair(0, COLOR_WHITE, COLOR_BLACK);
+	init_pair(2, COLOR_GREEN, COLOR_BLACK);
+	init_pair(3, COLOR_RED, COLOR_BLACK);
+	init_pair(4, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(5, COLOR_CYAN, COLOR_BLACK);
+	init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
+
+    attron(COLOR_PAIR(0));
+    printw("*");
+    attroff(COLOR_PAIR(0));
 	for(int i=0; i<4; i++){
 		if(line[i]==0){
-			l += "     *";
-		}else if (line[i]<10){
-			l += "  "; 
-            l += to_string(line[i]);
-            l += "  *";
-		}else if(line[i]<100){
-			l += " ";
-            l += to_string(line[i]);
-            l += "  *";
-		}else if(line[i]<1000){
-			l += " ";
-            l += to_string(line[i]);
-            l += " *";
-		}else if(line[i]<10000){
-			l += " ";
-            l += to_string(line[i]);
-            l += "*";
-		}else{
-			l += to_string(line[i]);
-            l += "*";
-		}
+            attron(COLOR_PAIR(0));
+			printw("     *");
+            attroff(COLOR_PAIR(0));
+		} else {
+            int couleur = 1;
+            int nb_case = 2;
+            while (nb_case != line[i])
+            {
+                couleur += 1;
+                nb_case = nb_case * 2;
+                if (couleur > 6){
+                    couleur = 1;
+                }
+            }
+            attron(COLOR_PAIR(couleur));
+            if (line[i]<10){
+			    printw("  %d  ", line[i]);
+		    }else if(line[i]<100){
+                printw(" %d  ", line[i]);
+		    }else if(line[i]<1000){
+                printw(" %d " ,line[i]);
+            }else if(line[i]<10000){
+                printw(" %d" , line[i]);
+            }else{
+                printw("%d" , line[i]);
+            }
+            attroff(COLOR_PAIR(couleur));
+            attron(COLOR_PAIR(0));
+            printw("*");
+            attroff(COLOR_PAIR(0));
+        }
 	}
-	l += "\n";
-    return l;
+	printw("\n");
 }
 
 
@@ -389,16 +407,15 @@ bool estRempli(Plateau plateau){
  * @param plateau le plateau de jeu
  **/
 void dessine(Plateau plateau){
-    string dessin = "\t";
-	dessin += afficheLignePleine();
+    printw("\t");
+	afficheLignePleine();
 	for(int i=0; i<4;i++){
-        dessin += "\t";
-		dessin += afficheLigneNombre(plateau[i]);
-        dessin += "\t";
-		dessin += afficheLignePleine();
+        printw("\t");
+		afficheLigneNombre(plateau[i]);
+        printw("\t");
+		afficheLignePleine();
 	}
-    dessin += "\t";
-    dessineCouleur(dessin);
+    printw("\t");
 }
 
 
