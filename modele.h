@@ -26,10 +26,8 @@ Plateau deplacement(Plateau plateau, int direction);
 void dessine(Plateau plateau);
 bool estTermine(Plateau plateau);
 bool estGagnant(Plateau plateau);
-int score(Plateau plateau, int quatre);
+int score(Plateau plateau, int deplacements);
 bool estRempli(Plateau plateau);
-void dessineCouleur(string plateau);
-
 
 // Les fonctions de test
 void testTireDeuxOuQuatre();
