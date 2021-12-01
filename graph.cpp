@@ -12,109 +12,8 @@ int width, height;
 int QUATRE;
 
 
-int pourcentage(int p, int size){
-    return (int)(p * size / 100);
-}
-
-bool touche_bouton(SDL_Rect btn, int x, int y){
-    if (x >= btn.x && x <= (btn.x + btn.w) && y >= btn.y && y <= (btn.y + btn.h)){
-        return true;
-    } else {
-        return false;
-    }
-}
 
 
-
-/** Génère le tableau contenant les coordonnées des cubes du titre
- * @param pourcentage_x un entier correspondant à la marge à gauche
- * @param taille_block une entier donnant la taille des cubes
- * @return le vecteur contenant les blocks
-**/
-vector<vector<int>> titre_menu(int pourcentage_x, int taille_block){
-
-    vector<vector<int>> titre = {
-        {pourcentage_x, 7 * taille_block},
-        {pourcentage_x + taille_block, 7 * taille_block},
-        {pourcentage_x + (2*taille_block), 7 * taille_block},
-        {pourcentage_x + (3*taille_block), 7 * taille_block},
-        {pourcentage_x, 6 * taille_block},
-        {pourcentage_x + taille_block , 5 * taille_block},
-        {pourcentage_x + (2*taille_block), 4 * taille_block},
-        {pourcentage_x + (3*taille_block), 3 * taille_block},
-        {pourcentage_x + (2*taille_block), 2 * taille_block},
-        {pourcentage_x + taille_block, 2 * taille_block},
-        {pourcentage_x, 3 * taille_block},
-
-        {pourcentage_x + (6 * taille_block), 7 * taille_block},
-        {pourcentage_x + (7 * taille_block), 7 * taille_block},
-        {pourcentage_x + (8 * taille_block), 7 * taille_block},
-        {pourcentage_x + (5 * taille_block), 6 * taille_block},
-        {pourcentage_x + (5 * taille_block), 5 * taille_block},
-        {pourcentage_x + (5 * taille_block), 4 * taille_block},
-        {pourcentage_x + (5 * taille_block), 3 * taille_block},
-        {pourcentage_x + (9 * taille_block), 6 * taille_block},
-        {pourcentage_x + (9 * taille_block), 5 * taille_block},
-        {pourcentage_x + (9 * taille_block), 4 * taille_block},
-        {pourcentage_x + (9 * taille_block), 3 * taille_block},
-        {pourcentage_x + (6 * taille_block), 2 * taille_block},
-        {pourcentage_x + (7 * taille_block), 2 * taille_block},
-        {pourcentage_x + (8 * taille_block), 2 * taille_block},
-
-        {pourcentage_x + (13 * taille_block), 7 * taille_block},
-        {pourcentage_x + (13 * taille_block), 6 * taille_block},
-        {pourcentage_x + (13 * taille_block), 4 * taille_block},
-        {pourcentage_x + (14 * taille_block), 5 * taille_block},
-        {pourcentage_x + (13 * taille_block), 5 * taille_block},
-        {pourcentage_x + (12 * taille_block), 5 * taille_block},
-        {pourcentage_x + (11 * taille_block), 5 * taille_block},
-        {pourcentage_x + (11 * taille_block), 4 * taille_block},
-        {pourcentage_x + (11 * taille_block), 3 * taille_block},
-        {pourcentage_x + (11 * taille_block), 2 * taille_block},
-
-        {pourcentage_x + (17 * taille_block), 7 * taille_block},
-        {pourcentage_x + (18 * taille_block), 7 * taille_block},
-        {pourcentage_x + (19 * taille_block), 7 * taille_block},
-        {pourcentage_x + (16 * taille_block), 6 * taille_block},
-        {pourcentage_x + (16 * taille_block), 5 * taille_block + taille_block/2},
-        {pourcentage_x + (16 * taille_block), 4 * taille_block - taille_block/2},
-        {pourcentage_x + (16 * taille_block), 3 * taille_block},
-        {pourcentage_x + (20 * taille_block), 6 * taille_block},
-        {pourcentage_x + (20 * taille_block), 5 * taille_block + taille_block/2},
-        {pourcentage_x + (20 * taille_block), 4 * taille_block - taille_block/2},
-        {pourcentage_x + (20 * taille_block), 3 * taille_block},
-        {pourcentage_x + (17 * taille_block), 2 * taille_block},
-        {pourcentage_x + (18 * taille_block), 2 * taille_block},
-        {pourcentage_x + (19 * taille_block), 2 * taille_block},
-        {pourcentage_x + (17 * taille_block), 4 * taille_block + taille_block/2},
-        {pourcentage_x + (18 * taille_block), 4 * taille_block + taille_block/2},
-        {pourcentage_x + (19 * taille_block), 4 * taille_block + taille_block/2}
-  
-    };
-    return titre;
-}
-
-
-
-/**
- * Créer une texture d'un texte
- * 
- * @param renderer la zone de rendu
- * @param text le texte à afficher
- * @param color couleur du texte
- * @param font_size taille du texte (plus élevée = meilleurs qualité)
- * @return SDL_Texture* la texture finale
- */
-SDL_Texture * create_text(SDL_Renderer * renderer, char * text, SDL_Color color, int font_size = 80){
-    TTF_Font * font = NULL;
-    font = TTF_OpenFont("Roboto-Bold.ttf", font_size);
-    SDL_Surface * surface = TTF_RenderUTF8_Blended(font, text, color);
-    SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer, surface);
-    SDL_FreeSurface(surface);
-    TTF_CloseFont(font);
-
-    return texture;
-}
 
 /**
  * Affiche fenêtre de victoire
@@ -126,24 +25,31 @@ int victoire(SDL_Renderer * renderer){
     SDL_Color white = {255, 255, 255};
 
     char victoire[] = "Vous avez gagné !";
-    char play[] = "Rejouer";
-    char menu[] = "Menu";
-    char quit[] = "Quitter";
+    char play[]     = "Rejouer";
+    char menu[]     = "Menu";
+    char quit[]     = "Quitter";
 
+    // Message principal
     SDL_Texture * main_text_txt = create_text(renderer, victoire, white, 100);
-    SDL_Rect main_rect = { (width/2) - (pourcentage(46, width)/2), (height/2) - pourcentage(20, height), pourcentage(46, width), pourcentage(20, height)};
+    SDL_Rect main_rect          = { (width/2) - (pourcentage(46, width)/2), (height/2) - pourcentage(20, height), pourcentage(46, width), pourcentage(20, height)};
 
-    SDL_Rect play_rect = { (width/10)*7 - (pourcentage(10, width)/2) - 10, pourcentage(70, height) - 5, pourcentage(10, width) + 20, pourcentage(8, height) + 10};
+    // Boutons affichés à l'écran
+    SDL_Rect play_rect     = { (width/10)*7 - (pourcentage(10, width)/2) - 10, pourcentage(70, height) - 5, pourcentage(10, width) + 20, pourcentage(8, height) + 10};
     SDL_Rect play_rect_txt = { (width/10)*7 - (pourcentage(10, width)/2), pourcentage(70, height), pourcentage(10, width), pourcentage(8, height)};
     SDL_Texture * play_txt = create_text(renderer, play, white, 100);
 
-    SDL_Rect menu_rect = { (width/10)*5 - (pourcentage(10, width)/2) - 10, pourcentage(70, height) - 5, pourcentage(10, width) + 20, pourcentage(8, height) + 10};
+    SDL_Rect menu_rect     = { (width/10)*5 - (pourcentage(10, width)/2) - 10, pourcentage(70, height) - 5, pourcentage(10, width) + 20, pourcentage(8, height) + 10};
     SDL_Rect menu_rect_txt = { (width/10)*5 - (pourcentage(10, width)/2), pourcentage(70, height), pourcentage(10, width), pourcentage(8, height)};
     SDL_Texture * menu_txt = create_text(renderer, menu, white, 100);
 
-    SDL_Rect quit_rect = { (width/10)*3 - (pourcentage(10, width)/2) - 10, pourcentage(70, height) - 5, pourcentage(10, width) + 20, pourcentage(8, height) + 10};
+    SDL_Rect quit_rect     = { (width/10)*3 - (pourcentage(10, width)/2) - 10, pourcentage(70, height) - 5, pourcentage(10, width) + 20, pourcentage(8, height) + 10};
     SDL_Rect quit_rect_txt = { (width/10)*3 - (pourcentage(10, width)/2), pourcentage(70, height), pourcentage(10, width), pourcentage(8, height)};
     SDL_Texture * quit_txt = create_text(renderer, quit, white, 100);
+
+
+    /* -- -- -- -- -- -- -- -- -- -- -- -- -- */
+    /*            BOUCLE EVENEMENTS           */
+
 
     bool victory_loop = true;
     SDL_Event e;
@@ -185,6 +91,13 @@ int victoire(SDL_Renderer * renderer){
     }
     return 0;
 }
+/* ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------  */
+/* ------ ------ ------ ------ ------ FIN FONCTION VICTOIRE ----- ------ ------ ------ ------ ------ ------  */
+/* ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------  */
+
+
+
+
 
 
 /**
@@ -197,24 +110,31 @@ int defaite(SDL_Renderer * renderer){
     SDL_Color white = {255, 255, 255};
 
     char victoire[] = "Vous avez perdu :/";
-    char play[] = "Rejouer";
-    char menu[] = "Menu";
-    char quit[] = "Quitter";
+    char play[]     = "Rejouer";
+    char menu[]     = "Menu";
+    char quit[]     = "Quitter";
 
+    // Message principal
     SDL_Texture * main_text_txt = create_text(renderer, victoire, white, 100);
     SDL_Rect main_rect = { (width/2) - (pourcentage(46, width)/2), (height/2) - pourcentage(20, height), pourcentage(46, width), pourcentage(20, height)};
 
-    SDL_Rect play_rect = { (width/10)*7 - (pourcentage(10, width)/2) - 10, pourcentage(70, height) - 5, pourcentage(10, width) + 20, pourcentage(8, height) + 10};
+
+    // Boutons affichés à l'écran
+    SDL_Rect play_rect     = { (width/10)*7 - (pourcentage(10, width)/2) - 10, pourcentage(70, height) - 5, pourcentage(10, width) + 20, pourcentage(8, height) + 10};
     SDL_Rect play_rect_txt = { (width/10)*7 - (pourcentage(10, width)/2), pourcentage(70, height), pourcentage(10, width), pourcentage(8, height)};
     SDL_Texture * play_txt = create_text(renderer, play, white, 100);
 
-    SDL_Rect menu_rect = { (width/10)*5 - (pourcentage(10, width)/2) - 10, pourcentage(70, height) - 5, pourcentage(10, width) + 20, pourcentage(8, height) + 10};
+    SDL_Rect menu_rect     = { (width/10)*5 - (pourcentage(10, width)/2) - 10, pourcentage(70, height) - 5, pourcentage(10, width) + 20, pourcentage(8, height) + 10};
     SDL_Rect menu_rect_txt = { (width/10)*5 - (pourcentage(10, width)/2), pourcentage(70, height), pourcentage(10, width), pourcentage(8, height)};
     SDL_Texture * menu_txt = create_text(renderer, menu, white, 100);
 
     SDL_Rect quit_rect = { (width/10)*3 - (pourcentage(10, width)/2) - 10, pourcentage(70, height) - 5, pourcentage(10, width) + 20, pourcentage(8, height) + 10};
     SDL_Rect quit_rect_txt = { (width/10)*3 - (pourcentage(10, width)/2), pourcentage(70, height), pourcentage(10, width), pourcentage(8, height)};
     SDL_Texture * quit_txt = create_text(renderer, quit, white, 100);
+
+
+    /* -- -- -- -- -- -- -- -- -- -- -- -- -- */
+    /*            BOUCLE EVENEMENTS           */
 
     bool loose_loop = true;
     SDL_Event e;
@@ -256,6 +176,10 @@ int defaite(SDL_Renderer * renderer){
     }
     return 0;
 }
+/* ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------  */
+/* ------ ------ ------ ------ ------ FIN FONCTION DEFAITE ------ ------ ------ ------ ------ ------ ------  */
+/* ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------  */
+
 
 
 
@@ -273,11 +197,16 @@ int menu(SDL_Renderer * renderer){
 
     // Création des textures du texte
     char play_txt[] = "JOUER";
-    char var_txt[] = "VARIANTE";
+    char var_txt[]  = "VARIANTE";
     char quit_txt[] = "QUITTER";
     SDL_Texture * texture_play = create_text(renderer, play_txt, white, 100);
     SDL_Texture * texture_var = create_text(renderer, var_txt, white, 100);
     SDL_Texture * texture_quit = create_text(renderer, quit_txt, white, 80);
+
+    SDL_Rect rect_anim1 = { rand()%width - pourcentage(8, width), 0 - pourcentage(8, width), pourcentage(8, width), pourcentage(8, width)};
+    SDL_Rect rect_anim2 = { rand()%width - pourcentage(8, width), 0 - pourcentage(8, width), pourcentage(8, width), pourcentage(8, width)};
+    SDL_Texture * texture_anim1 = genere_cube(renderer);
+    SDL_Texture * texture_anim2 = genere_cube(renderer);
 
     // Paramètres du titre (2048) et chargement des coordonnées
     int taille_block = pourcentage(3.5, (width + height) / 2);
@@ -289,14 +218,14 @@ int menu(SDL_Renderer * renderer){
     int button_w = pourcentage(40, width);
     int button_h = pourcentage(20, height);
     SDL_Rect play_button = {width/2 - button_w/2, height/8 * 3, button_w, button_h};
-    SDL_Rect opt_button = {width/2 - button_w/2, height/8 * 5, button_w, button_h};
+    SDL_Rect opt_button  = {width/2 - button_w/2, height/8 * 5, button_w, button_h};
     SDL_Rect quit_button = {10, height-60, pourcentage(12, width), pourcentage(9, height)};
+
     // Emplacement du texte
     SDL_Rect play_button_text = {width/2 - button_w/2 + ((play_button.w - (int)(button_w*0.8))/2), (height/8 * 3 + (play_button.h - (int)(button_h*0.8))/2), (button_w*80)/100, (button_h*80)/100};
-    SDL_Rect opt_button_text = {width/2 - button_w/2 + ((opt_button.w - (int)(button_w*0.8))/2), (height/8 * 5 + (opt_button.h - (int)(button_h*0.8))/2), (button_w*80)/100, (button_h*80)/100};
+    SDL_Rect opt_button_text  = {width/2 - button_w/2 + ((opt_button.w - (int)(button_w*0.8))/2), (height/8 * 5 + (opt_button.h - (int)(button_h*0.8))/2), (button_w*80)/100, (button_h*80)/100};
     SDL_Rect quit_button_text = {10 + ((quit_button.w - pourcentage(10, width))/2), ((height-60) + (quit_button.h - pourcentage(6, height))/2), pourcentage(10, width), pourcentage(6, height)};
     
-    /* -- -- -- -- -- -- -- -- -- -- -- -- -- */
 
     // Couleur des boutons
     SDL_Color button_default_color = {0, 255, 0};
@@ -305,16 +234,23 @@ int menu(SDL_Renderer * renderer){
     SDL_Color btn2_color = button_default_color;
     SDL_Color btn3_color = button_default_color;
 
+    /* -- -- -- -- -- -- -- -- -- -- -- -- -- */
+    /*            BOUCLE EVENEMENTS           */
+
     bool menu = true;
     SDL_Event e;
     
     while (menu)
     {
         current_time = SDL_GetTicks();
-        if (current_time - last_time > 2000){
-            cout << "2s" << endl;
+        if (current_time - last_time > 50){
+            rect_anim1.y += 2;
             last_time = current_time;
+            if (rect_anim1.y >= height){
+                rect_anim1.y = 0;
+            }
         }
+
         SDL_PollEvent(&e);
         if (e.type == SDL_QUIT){
             menu = false;
@@ -367,6 +303,8 @@ int menu(SDL_Renderer * renderer){
         SDL_RenderFillRect(renderer, &quit_button);
         SDL_RenderCopy(renderer, texture_quit, NULL, &quit_button_text);
 
+        SDL_RenderCopy(renderer, texture_anim1, NULL, &rect_anim1);
+
         // Actualise l'affichage
         SDL_RenderPresent(renderer);
     }
@@ -378,36 +316,8 @@ int menu(SDL_Renderer * renderer){
 
 
 
-/**
- * @brief transforme le vecteur plateau en un vecteur de textures à afficher à l'écran
- * 
- * @param renderer la zone de rendu
- * @param plateau le plateau de jeu
- * @param color la coulleur du texte à l'écran
- * @param textureTextTable le tableau contenant les textures (à modifier)
- * @return vector<SDL_Texture*> le tableau de textures modifié
- */
-vector<SDL_Texture*> textFromPlateau(SDL_Renderer * renderer, Plateau plateau, SDL_Color color, vector<SDL_Texture*> textureTextTable){
-    int x = 0, y = 0;
-    string plt_str;
-    SDL_Color black = {0, 0, 0};
-    SDL_Texture * number_case;
-    for (int i = 0; i < textureTextTable.size(); i ++){
-        plt_str = to_string(plateau[y][x]);
-        char const * txt_nbr = plt_str.c_str();
-        if (plateau[y][x] == 0){
-            textureTextTable[i] = create_text(renderer, (char*)txt_nbr, black);
-        } else {
-            textureTextTable[i] = create_text(renderer, (char*)txt_nbr, color);
-        }
-        x++;
-        if (x > 3){
-            x = 0;
-            y++;
-        }
-    }
-    return textureTextTable;
-}
+
+
 
 /**
  * Fonction de jeu
@@ -416,9 +326,14 @@ vector<SDL_Texture*> textFromPlateau(SDL_Renderer * renderer, Plateau plateau, S
  * @return int un entier correspondant à l'action à affectuer à la fin de la fonction
  */
 int game(SDL_Renderer * renderer){
+    // On réinitialise QUATRE à 0
     QUATRE = 0;
+
+    
     Plateau plateau = plateauVide();
     plateau = plateauInitial();
+
+    // Définition couleur(s)
     SDL_Color white = {255, 255, 255};
 
     // Taille des cases de la grille
@@ -441,6 +356,8 @@ int game(SDL_Renderer * renderer){
         }
     }
 
+    
+
     // Création de tableaux contenant les coordonnées des cases de la grille
     vector<SDL_Rect> dessin_grille1;
     vector<SDL_Rect> dessin_grille2;
@@ -456,22 +373,38 @@ int game(SDL_Renderer * renderer){
         dessin_grille2[i] = rect2;
     }
     
+    // Création des textures de chaque nombres du plateau
+    // Les textures sont ajoutées dans un tableau que l'on
+    // parcourt à l'affichage
     vector<SDL_Texture*> grilleTextTexture;
     grilleTextTexture = vector<SDL_Texture*>(16);
     grilleTextTexture = textFromPlateau(renderer, plateau, white, grilleTextTexture);
 
-    char s[] = "Score: 0";
-    char const * scr;
-    string scr_str;
+
+    // Délcaration des variables pour dessin du plateau
     SDL_Texture * number_case;
     SDL_Rect rect_txt;
     SDL_Rect rect;
     SDL_Rect rect1;
-    SDL_Texture * score_txt = create_text(renderer, s, white);
-    SDL_Rect score_rect = {20, 20, pourcentage(10, width), pourcentage(6, height)};
 
-    // Evite la répétition d'une touche si l'on reste appuyé dessus
+    // Affichage du score
+    char s[] = "Score: 0";
+    char const * scr;
+    string scr_str;
+    SDL_Texture * score_txt = create_text(renderer, s, white);
+    SDL_Rect score_rect     = {20, 20, pourcentage(10, width), pourcentage(6, height)};
+
+    
+
+    /* Evite la répétition d'une touche si l'on reste appuyé dessus
+    // -> utilisé dans evenements SDL_KEYDOWN pour que l'apuie sur 
+    //    une flèche ne fasse qu'un seul déplacement par clique
+    */
     bool up = true;
+
+
+    /* -- -- -- -- -- -- -- -- -- -- -- -- -- */
+    /*            BOUCLE EVENEMENTS           */
 
     bool game = true;
     SDL_Event e;
@@ -495,10 +428,10 @@ int game(SDL_Renderer * renderer){
                     if ( !estRempli(plateau) ){
                         plateau = ajouteDeuxOuQuatre(plateau);
                     }
-                    scr_str = to_string(score(plateau));
-                    scr_str = "Score: " + scr_str;
-                    scr = scr_str.c_str();
-                    score_txt = create_text(renderer, (char*)scr, white);
+                    scr_str           = to_string(score(plateau));
+                    scr_str           = "Score: " + scr_str;
+                    scr               = scr_str.c_str();
+                    score_txt         = create_text(renderer, (char*)scr, white);
                     grilleTextTexture = textFromPlateau(renderer, plateau, white, grilleTextTexture);
                     break;
                 case 80:
@@ -507,10 +440,10 @@ int game(SDL_Renderer * renderer){
                     if ( !estRempli(plateau) ){
                         plateau = ajouteDeuxOuQuatre(plateau);
                     }
-                    scr_str = to_string(score(plateau));
-                    scr_str = "Score: " + scr_str;
-                    scr = scr_str.c_str();
-                    score_txt = create_text(renderer, (char*)scr, white);
+                    scr_str           = to_string(score(plateau));
+                    scr_str           = "Score: " + scr_str;
+                    scr               = scr_str.c_str();
+                    score_txt         = create_text(renderer, (char*)scr, white);
                     grilleTextTexture = textFromPlateau(renderer, plateau, white, grilleTextTexture);
                     break;
                 case 81:
@@ -519,10 +452,10 @@ int game(SDL_Renderer * renderer){
                     if ( !estRempli(plateau) ){
                         plateau = ajouteDeuxOuQuatre(plateau);
                     }
-                    scr_str = to_string(score(plateau));
-                    scr_str = "Score: " + scr_str;
-                    scr = scr_str.c_str();
-                    score_txt = create_text(renderer, (char*)scr, white);
+                    scr_str           = to_string(score(plateau));
+                    scr_str           = "Score: " + scr_str;
+                    scr               = scr_str.c_str();
+                    score_txt         = create_text(renderer, (char*)scr, white);
                     grilleTextTexture = textFromPlateau(renderer, plateau, white, grilleTextTexture);
                     break;
                 case 82:
@@ -531,10 +464,10 @@ int game(SDL_Renderer * renderer){
                     if ( !estRempli(plateau) ){
                         plateau = ajouteDeuxOuQuatre(plateau);
                     }
-                    scr_str = to_string(score(plateau));
-                    scr_str = "Score: " + scr_str;
-                    scr = scr_str.c_str();
-                    score_txt = create_text(renderer, (char*)scr, white);
+                    scr_str           = to_string(score(plateau));
+                    scr_str           = "Score: " + scr_str;
+                    scr               = scr_str.c_str();
+                    score_txt         = create_text(renderer, (char*)scr, white);
                     grilleTextTexture = textFromPlateau(renderer, plateau, white, grilleTextTexture);
                     break;
                 default:
@@ -558,10 +491,12 @@ int game(SDL_Renderer * renderer){
 
         int x = 0, y = 0;
         for (int i = 0; i < plateau_coord.size(); i ++){
-            rect = dessin_grille1[i];
+            rect  = dessin_grille1[i];
             rect1 = dessin_grille2[i];
             SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
             SDL_RenderFillRect(renderer, &rect);
+
+            // Couleur de la case en fonction du nombre dans la case
             switch (plateau[y][x])
             {
             case 0:
@@ -625,6 +560,12 @@ int game(SDL_Renderer * renderer){
 /* ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------  */
 /* ------ ------ ------ ------ ------ - FIN FONCTION GAME ------- ------ ------ ------ ------ ------ ------  */
 /* ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------  */
+
+
+
+
+
+
 
 
 /** --> Index de retour fonction et signification <--

@@ -1,4 +1,5 @@
 #include <vector>
+#include <SDL2/SDL.h>
 using namespace std;
 
 extern int QUATRE;
@@ -37,3 +38,12 @@ void testEstTermine();
 void testPlateauInitial();
 void testEstGagnant();
 void testPlateauVide();
+
+
+// Les fonctions utilisées pas l'interface graphique
+int pourcentage(int p, int size);
+bool touche_bouton(SDL_Rect btn, int x, int y);
+vector<vector<int>> titre_menu(int pourcentage_x, int taille_block);
+SDL_Texture * create_text(SDL_Renderer * renderer, char * text, SDL_Color color, int font_size = 80);
+SDL_Texture * genere_cube(SDL_Renderer * renderer);
+vector<SDL_Texture*> textFromPlateau(SDL_Renderer * renderer, Plateau plateau, SDL_Color color, vector<SDL_Texture*> textureTextTable);
