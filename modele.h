@@ -47,3 +47,10 @@ vector<vector<int>> titre_menu(int pourcentage_x, int taille_block);
 SDL_Texture * create_text(SDL_Renderer * renderer, char * text, SDL_Color color, int font_size = 80);
 SDL_Texture * genere_cube(SDL_Renderer * renderer);
 vector<SDL_Texture*> textFromPlateau(SDL_Renderer * renderer, Plateau plateau, SDL_Color color, vector<SDL_Texture*> textureTextTable);
+
+
+Plateau plateauVideVariante();
+Plateau ajouteDeux(Plateau plateau);
+int scoreVariante(Plateau plateau);
+Plateau plateauInitialVariante();
+bool estGagnantVariante(Plateau p);

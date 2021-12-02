@@ -184,7 +184,7 @@ vector<SDL_Texture*> textFromPlateau(SDL_Renderer * renderer, Plateau plateau, S
             textureTextTable[i] = create_text(renderer, (char*)txt_nbr, color);
         }
         x++;
-        if (x > 3){
+        if (x > plateau.size() - 1){
             x = 0;
             y++;
         }

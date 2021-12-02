@@ -75,9 +75,9 @@ Plateau ajouteDeuxOuQuatre(Plateau plateau){
  **/
 Plateau deplacementGauche(Plateau plateau){
     int rangMax;
-    for (int i = 0; i < 4; i++){
+    for (int i = 0; i < plateau.size(); i++){
         rangMax = 0;
-        for (int j = 0; j < 4; j++){
+        for (int j = 0; j < plateau[i].size(); j++){
             if (plateau[i][j] != 0){
                 if (j > rangMax && plateau[i][j-1] == 0 ){
                     plateau[i][j-1] = plateau[i][j];
@@ -104,9 +104,9 @@ Plateau deplacementGauche(Plateau plateau){
  **/
 Plateau deplacementDroite(Plateau plateau){
     int rangMax;
-    for (int i = 0; i < 4; i++){
-        rangMax = 3;
-        for (int j = 3; j >= 0; j--){
+    for (int i = 0; i < plateau.size(); i++){
+        rangMax = plateau.size()-1;
+        for (int j = plateau[i].size() - 1; j >= 0; j--){
             if (plateau[i][j] != 0){
                 if (j < rangMax && plateau[i][j+1] == 0 ){
                     plateau[i][j+1] = plateau[i][j];
@@ -133,9 +133,9 @@ Plateau deplacementDroite(Plateau plateau){
  **/
 Plateau deplacementBas(Plateau plateau){
     int rangMax;
-    for (int i = 0; i < 4; i++){
-        rangMax = 3;
-        for (int j = 3; j >= 0; j--){
+    for (int i = 0; i < plateau.size(); i++){
+        rangMax = plateau.size()-1;
+        for (int j = plateau[i].size() - 1; j >= 0; j--){
             if (plateau[j][i] != 0){
                 if (j < rangMax && plateau[j+1][i] == 0 ){
                     plateau[j+1][i] = plateau[j][i];
@@ -162,9 +162,9 @@ Plateau deplacementBas(Plateau plateau){
  **/
 Plateau deplacementHaut(Plateau plateau){
     int rangMax;
-    for (int i = 0; i < 4; i++){
+    for (int i = 0; i < plateau.size(); i++){
         rangMax = 0;
-        for (int j = 0; j < 4; j++){
+        for (int j = 0; j < plateau[i].size(); j++){
             if (plateau[j][i] != 0){
                 if (j > rangMax && plateau[j-1][i] == 0 ){
                     plateau[j-1][i] = plateau[j][i];
@@ -265,7 +265,7 @@ void afficheLignePleine(){
 */
 void afficheLigneNombre(vector<int> line){
 	cout << "*";
-	for(int i=0; i<4; i++){
+	for(int i=0; i<line.size(); i++){
 		if(line[i]==0){
 			cout << "     *";
 		}else if (line[i]<10){
@@ -293,8 +293,8 @@ void afficheLigneNombre(vector<int> line){
  * @return true si la partie est terminée, false sinon
 */
 bool estTermine(Plateau p){
-	for (int i=0; i<4; i++){
-		for(int j=0; j<4; j++){
+	for (int i=0; i<p.size(); i++){
+		for(int j=0; j<p[i].size(); j++){
 			if(p[i][j]==0){
 				return false;
 			}
@@ -303,12 +303,12 @@ bool estTermine(Plateau p){
 					return false;
 				}
 			}
-			if(i+1<4){
+			if(i+1<p.size()){
 				if(p[i+1][j]==p[i][j]){
 					return false;
 				}
 			}
-			if(j+1<4){
+			if(j+1<p.size()){
 				if(p[i][j+1]==p[i][j]){
 					return false;
 				}
@@ -322,6 +322,7 @@ bool estTermine(Plateau p){
 	}
 	return true;
 }
+
 
 
 
@@ -349,8 +350,8 @@ bool estGagnant(Plateau p){
  * @return true si le grille est pleine, false sinon
  **/ 
 bool estRempli(Plateau plateau){
-    for (int i = 0; i < 4; i++){
-        for (int j = 0; j < 4; j++){
+    for (int i = 0; i < plateau.size(); i++){
+        for (int j = 0; j < plateau[i].size(); j++){
             if (plateau[i][j] == 0){
                 return false;
             }
@@ -366,7 +367,7 @@ bool estRempli(Plateau plateau){
  **/
 void dessine(Plateau plateau){
 	afficheLignePleine();
-	for(int i=0; i<4;i++){
+	for(int i=0; i<plateau.size();i++){
 		afficheLigneNombre(plateau[i]);
 		afficheLignePleine();
 	}

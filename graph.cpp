@@ -13,8 +13,6 @@ int QUATRE;
 
 
 
-
-
 /**
  * Affiche fenêtre de victoire
  * 
@@ -197,7 +195,7 @@ int menu(SDL_Renderer * renderer){
 
     // Création des textures du texte
     char play_txt[] = "JOUER";
-    char var_txt[]  = "VARIANTE";
+    char var_txt[]  = "2048 CHRONO !";
     char quit_txt[] = "QUITTER";
     SDL_Texture * texture_play = create_text(renderer, play_txt, white, 100);
     SDL_Texture * texture_var = create_text(renderer, var_txt, white, 100);
@@ -228,8 +226,8 @@ int menu(SDL_Renderer * renderer){
     
 
     // Couleur des boutons
-    SDL_Color button_default_color = {0, 255, 0};
-    SDL_Color button_over_default_color = {255, 255, 0};
+    SDL_Color button_default_color = {30, 132, 127};
+    SDL_Color button_over_default_color = {37, 178, 171};
     SDL_Color btn1_color = button_default_color;
     SDL_Color btn2_color = button_default_color;
     SDL_Color btn3_color = button_default_color;
@@ -243,12 +241,8 @@ int menu(SDL_Renderer * renderer){
     while (menu)
     {
         current_time = SDL_GetTicks();
-        if (current_time - last_time > 50){
-            rect_anim1.y += 2;
-            last_time = current_time;
-            if (rect_anim1.y >= height){
-                rect_anim1.y = 0;
-            }
+        if (current_time - last_time > 40){
+            
         }
 
         SDL_PollEvent(&e);
@@ -259,6 +253,8 @@ int menu(SDL_Renderer * renderer){
                 return 2;
             } else if (touche_bouton(quit_button, e.motion.x, e.motion.y)){
                 return 0;
+            } else if (touche_bouton(opt_button, e.motion.x, e.motion.y)) {
+                return 5;
             }
         } else if (e.type == SDL_MOUSEMOTION){
             if (touche_bouton(play_button, e.motion.x, e.motion.y)){
@@ -283,11 +279,10 @@ int menu(SDL_Renderer * renderer){
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        SDL_SetRenderDrawColor(renderer, 236, 193, 156, 255);
 
         // Dessine tous les cubes du titre
         for (int i = 0; i < titre.size(); i ++){
-            SDL_SetRenderDrawColor(renderer, 10, 80, 255, 255);
             SDL_Rect rect = {titre[i][0], titre[i][1], taille_block, taille_block};
             SDL_RenderFillRect(renderer, &rect);
         }
@@ -564,6 +559,289 @@ int game(SDL_Renderer * renderer){
 
 
 
+/**
+ * Fonction du jeu 128 chrono !
+ * 
+ * @param renderer la zone de dessin
+ * @return int un entier correspondant à l'action à affectuer à la fin de la fonction
+ */
+int game_128(SDL_Renderer * renderer){
+
+    Plateau plateau = plateauVideVariante();
+    plateau = plateauInitialVariante();
+
+    // Définition couleur(s)
+    SDL_Color white = {255, 255, 255};
+
+    // Taille des cases de la grille
+    int case_nbr_size = pourcentage(20, height);
+
+    // Calcul des marges sur les côtés de la grille
+    int margin_lr = (width - (pourcentage(20, height) * 3))/2;
+    int margin_tb = (height - (pourcentage(20, height) * 3))/2;
+
+    // Création d'un tableau avec les coordonnées de chaque case du plateau
+    vector<vector<int>> plateau_coord;
+    plateau_coord = vector<vector<int>>(9);
+    int x = 0, y = 0;
+    for (int i = 0; i < plateau_coord.size(); i++){
+        plateau_coord[i] = {margin_lr + (x * case_nbr_size), margin_tb + (y * case_nbr_size)};
+        x++;
+        if (x > 2){
+            x = 0;
+            y++;
+        }
+    }
+
+    
+
+    // Création de tableaux contenant les coordonnées des cases de la grille
+    vector<SDL_Rect> dessin_grille1;
+    vector<SDL_Rect> dessin_grille2;
+    dessin_grille1 = vector<SDL_Rect>(9);
+    dessin_grille2 = vector<SDL_Rect>(9);
+    for (int i = 0; i < dessin_grille1.size(); i++ ){
+        SDL_Rect rect1;
+        SDL_Rect rect2;
+        rect1 = {plateau_coord[i][0], plateau_coord[i][1], case_nbr_size, case_nbr_size};
+        rect2 = {plateau_coord[i][0] + 2, plateau_coord[i][1] + 2, case_nbr_size - 4, case_nbr_size - 4};
+
+        dessin_grille1[i] = rect1;
+        dessin_grille2[i] = rect2;
+    }
+    
+    // Création des textures de chaque nombres du plateau
+    // Les textures sont ajoutées dans un tableau que l'on
+    // parcourt à l'affichage
+    vector<SDL_Texture*> grilleTextTexture;
+    grilleTextTexture = vector<SDL_Texture*>(9);
+    grilleTextTexture = textFromPlateau(renderer, plateau, white, grilleTextTexture);
+
+
+    // Délcaration des variables pour dessin du plateau
+    SDL_Texture * number_case;
+    SDL_Rect rect_txt;
+    SDL_Rect rect;
+    SDL_Rect rect1;
+
+    // Affichage du score
+    char s[] = "Score: 0";
+    char const * scr;
+    string scr_str;
+    SDL_Texture * score_txt = create_text(renderer, s, white);
+    SDL_Rect score_rect     = {20, 20, pourcentage(10, width), pourcentage(6, height)};
+
+    // CHRONO
+    string str_chrono1;
+    string str_chrono2;
+    string str_chrono3;
+    char const * chrono_affiche;
+    string point = ".";
+    string point2 = ":";
+    SDL_Rect chrono_rect     = {80, 100, pourcentage(10, width), pourcentage(6, height)};
+    char t[] = "00:00.00";
+    int chrono_min = 0;
+    int chrono_ms = 0;
+    int chrono_s = 0;
+    SDL_Texture * chrono_txt = create_text(renderer, t, white);
+    Uint32 lastTime = 0;
+    Uint32 currentTime;
+
+    /* Evite la répétition d'une touche si l'on reste appuyé dessus
+    // -> utilisé dans evenements SDL_KEYDOWN pour que l'apuie sur 
+    //    une flèche ne fasse qu'un seul déplacement par clique
+    */
+    bool up = true;
+
+    
+    /* -- -- -- -- -- -- -- -- -- -- -- -- -- */
+    /*            BOUCLE EVENEMENTS           */
+
+    bool game = true;
+    SDL_Event e;
+    while (game){
+        SDL_PollEvent(&e);
+        if (e.type == SDL_QUIT){
+            game = false;
+        } else if (e.type == SDL_KEYDOWN){
+            if (up == false){
+                continue;
+            } else {
+                switch (e.key.keysym.scancode)
+                {
+                case 41:
+                    SDL_DestroyTexture(score_txt);
+                    return 1;
+                    break;
+                case 79:
+                    plateau = deplacement(plateau, DROITE);
+                    
+                    up = false;
+                    if ( !estRempli(plateau) ){
+                        plateau = ajouteDeux(plateau);
+                    }
+                    scr_str           = to_string(scoreVariante(plateau));
+                    scr_str           = "Score: " + scr_str;
+                    scr               = scr_str.c_str();
+                    score_txt         = create_text(renderer, (char*)scr, white);
+                    grilleTextTexture = textFromPlateau(renderer, plateau, white, grilleTextTexture);
+                    break;
+                case 80:
+                    plateau = deplacement(plateau, GAUCHE);
+                    up = false;
+                    if ( !estRempli(plateau) ){
+                        plateau = ajouteDeux(plateau);
+                    }
+                    scr_str           = to_string(scoreVariante(plateau));
+                    scr_str           = "Score: " + scr_str;
+                    scr               = scr_str.c_str();
+                    score_txt         = create_text(renderer, (char*)scr, white);
+                    grilleTextTexture = textFromPlateau(renderer, plateau, white, grilleTextTexture);
+                    break;
+                case 81:
+                    plateau = deplacement(plateau, BAS);
+                    up = false;
+                    if ( !estRempli(plateau) ){
+                        plateau = ajouteDeux(plateau);
+                    }
+                    scr_str           = to_string(scoreVariante(plateau));
+                    scr_str           = "Score: " + scr_str;
+                    scr               = scr_str.c_str();
+                    score_txt         = create_text(renderer, (char*)scr, white);
+                    grilleTextTexture = textFromPlateau(renderer, plateau, white, grilleTextTexture);
+                    break;
+                case 82:
+                    plateau = deplacement(plateau, HAUT);
+                    up = false;
+                    if ( !estRempli(plateau) ){
+                        plateau = ajouteDeux(plateau);
+                    }
+                    scr_str           = to_string(scoreVariante(plateau));
+                    scr_str           = "Score: " + scr_str;
+                    scr               = scr_str.c_str();
+                    score_txt         = create_text(renderer, (char*)scr, white);
+                    grilleTextTexture = textFromPlateau(renderer, plateau, white, grilleTextTexture);
+                    break;
+                default:
+                    break;
+                }
+                if (estGagnantVariante(plateau)){
+                    return 3;
+                } else if (estTermine(plateau)){
+                    return 4;
+                }
+            }
+        } else if (e.type == SDL_KEYUP){
+            if (up == false){
+                up = true;
+            }
+        }
+
+        // Nettoie affichage avant dessin
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_RenderClear(renderer);
+
+        int x = 0, y = 0;
+        for (int i = 0; i < plateau_coord.size(); i ++){
+            rect  = dessin_grille1[i];
+            rect1 = dessin_grille2[i];
+            SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+            SDL_RenderFillRect(renderer, &rect);
+
+            // Couleur de la case en fonction du nombre dans la case
+            switch (plateau[y][x])
+            {
+            case 0:
+                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+                break;
+            case 2:
+                SDL_SetRenderDrawColor(renderer,  52, 73, 94 , 255);
+                break;
+            case 4:
+                SDL_SetRenderDrawColor(renderer,  149, 165, 166 , 255);
+                break;
+            case 8:
+                SDL_SetRenderDrawColor(renderer,  211, 84, 0 , 255);
+                break;
+            case 16:
+                SDL_SetRenderDrawColor(renderer,  243, 156, 18 , 255);
+                break;
+            case 32:
+                SDL_SetRenderDrawColor(renderer,   241, 196, 15 , 255);
+                break;
+            case 64:
+                SDL_SetRenderDrawColor(renderer,   39, 174, 96 , 255);
+                break;
+            case 128:
+                SDL_SetRenderDrawColor(renderer,  22, 160, 133 , 255);
+                break;
+            default:
+                SDL_SetRenderDrawColor(renderer,  192, 57, 43 , 255);
+                break;
+            }
+            SDL_RenderFillRect(renderer, &rect1);
+
+            rect_txt = {plateau_coord[i][0] + 20, plateau_coord[i][1] + 10, case_nbr_size - 40, case_nbr_size - 20};
+            SDL_RenderCopy(renderer, grilleTextTexture[i], NULL, &rect_txt);
+
+            x++;
+            if (x > 2){
+                x = 0;
+                y++;
+            }
+        }
+        SDL_RenderCopy(renderer, score_txt, NULL, &score_rect);
+        
+        currentTime = SDL_GetTicks();
+        if (currentTime > lastTime + 10){
+            chrono_ms += 1;
+            if (chrono_ms >= 100){
+                chrono_ms = 0;
+                chrono_s += 1;
+            }
+            if (chrono_s >= 60){
+                chrono_s = 0;
+                chrono_min += 1;
+            }
+            str_chrono1 = to_string(chrono_ms);
+            str_chrono2 = to_string(chrono_s);
+            str_chrono3 = to_string(chrono_min);
+
+            if (chrono_min < 10){
+                str_chrono3 = "0" + str_chrono3;
+            }
+            if (chrono_s < 10){
+                str_chrono3 = str_chrono3 + point2 + "0" + str_chrono2;
+            } else {
+                str_chrono3 = str_chrono3 + point2 + str_chrono2;
+            }
+            if (chrono_ms < 10){
+                str_chrono3 = str_chrono3 + point + "0" + str_chrono1;
+            } else {
+                str_chrono3 = str_chrono3 + point + str_chrono1;
+            }
+            chrono_affiche = str_chrono3.c_str();
+            chrono_txt = create_text(renderer, (char*)chrono_affiche, white);
+            lastTime = currentTime;
+        }
+        SDL_RenderCopy(renderer, chrono_txt, NULL, &chrono_rect);
+
+        SDL_RenderPresent(renderer);
+    }
+    SDL_DestroyTexture(score_txt);
+    return 0;
+}
+/* ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------  */
+/* ------ ------ ------ ------ ------ - FIN FONCTION GAME ------- ------ ------ ------ ------ ------ ------  */
+/* ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------  */
+
+
+
+
+
+
+
+
 
 
 
@@ -615,6 +893,8 @@ int main(int argc, char const *argv[])
             place = victoire(renderer);
         } else if (place == 4) {
             place = defaite(renderer);
+        } else if (place == 5){
+            place = game_128(renderer);
         } else {
             place = 0;
         }
