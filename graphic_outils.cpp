@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-
+   
 /**
  * @brief renvoie une valeur correspondant au poucentage d'une valeur donnée
  * 
