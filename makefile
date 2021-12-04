@@ -1,5 +1,5 @@
 2048: main.o modele.o graphic_outils.o variante.o
-	g++ main.o modele.o variante.o graphic_outils.o -lSDL2_ttf -lSDL2 -lSDL2main -o graphics
+	g++ main.o modele.o variante.o graphic_outils.o -lSDL2_ttf -lSDL2 -lSDL2main -o 2048
 modele.o: modele.cpp
 	g++ -c modele.cpp
 main.o: main.cpp
