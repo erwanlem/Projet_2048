@@ -15,9 +15,9 @@ Installation librairie(s):
 
 COMPILATION (MANUELLE):
   
-  1 - g++ -c 2048.cpp
-  2 - g++ -c modele.cpp
-  3 - g++ modele.o 2048.o -o 2048
+  1. g++ -c 2048.cpp
+  2. g++ -c modele.cpp
+  3. g++ modele.o 2048.o -o 2048
 
 COMPILATION MAKEFILE:
  
