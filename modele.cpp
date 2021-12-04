@@ -12,15 +12,12 @@ using namespace std;
  **/
 Plateau plateauVide(){
 	Plateau plateau;
-	plateau= Plateau(4);
-	vector<int> lignes;
-	lignes= vector<int>(4);
-	for(int i=0; i<plateau.size(); i++){
-		for(int j=0; j<lignes.size(); j++){
-			lignes[j]=0;
-		}
-		plateau[i]=lignes;
-	}
+	plateau = {
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0}
+    };
 	return plateau;
 }
 
@@ -52,16 +49,18 @@ int tireDeuxOuQuatre(){
  * @param plateau le plateau à modifier
  * @return le plateau avec une nouvelle case remplie
  **/
-Plateau ajouteDeuxOuQuatre(Plateau plateau){
+Partie ajouteDeuxOuQuatre(Partie plateau){
     int a, b;
     a = rand()%4;
     b = rand()%4;
-    while (plateau[a][b] != 0){
+    while (plateau.plateau[a][b] != 0){
         a = rand()%4;
         b = rand()%4;
     }
-    int n = tireDeuxOuQuatre();
-    plateau[a][b] = n;
+    plateau.plateau[a][b] = tireDeuxOuQuatre();
+    if (plateau.plateau[a][b] == 4){
+        plateau.quatre += 1;
+    }
     return plateau;
 }
 
@@ -74,19 +73,29 @@ Plateau ajouteDeuxOuQuatre(Plateau plateau){
  * @return plateau de type plateau déplacé vers la gauche
  **/
 Plateau deplacementGauche(Plateau plateau){
-    int rangMax;
-    for (int i = 0; i < 4; i++){
-        rangMax = 0;
-        for (int j = 0; j < 4; j++){
+    for (int i = 0; i < plateau.size(); i++){
+        for (int j = 0; j < plateau[i].size() - 1; j++){
+            int n = 1;
             if (plateau[i][j] != 0){
-                if (j > rangMax && plateau[i][j-1] == 0 ){
+                while (j + n < plateau[i].size() ){
+                    if (plateau[i][j+n] == plateau[i][j]){
+                        plateau[i][j] = plateau[i][j] * 2;
+                        plateau[i][j+n] = 0;
+                        break;
+                    } else if (plateau[i][j+n] != 0) {
+                        break;
+                    } else {
+                        n += 1;
+                    }
+                }
+            }
+        }
+        for (int j = 0; j < plateau[i].size(); j++){
+            if (plateau[i][j] != 0){
+                while (j > 0 && plateau[i][j-1] == 0 ){
                     plateau[i][j-1] = plateau[i][j];
                     plateau[i][j] = 0;
-                    j = rangMax;
-                } else if (j > rangMax && plateau[i][j-1] == plateau[i][j]){
-                    plateau[i][j-1] = plateau[i][j-1] * 2;
-                    plateau[i][j] = 0;
-                    rangMax += 1;
+                    j--;
                 }
             }
         }
@@ -103,19 +112,29 @@ Plateau deplacementGauche(Plateau plateau){
  * @return plateau de type plateau déplacé vers la droite
  **/
 Plateau deplacementDroite(Plateau plateau){
-    int rangMax;
-    for (int i = 0; i < 4; i++){
-        rangMax = 3;
-        for (int j = 3; j >= 0; j--){
+    for (int i = 0; i < plateau.size(); i++){
+        for (int j = plateau[i].size() - 1; j > 0; j--){
+            int n = 1;
             if (plateau[i][j] != 0){
-                if (j < rangMax && plateau[i][j+1] == 0 ){
+                while (j - n >= 0){
+                    if (plateau[i][j-n] == plateau[i][j]){
+                        plateau[i][j] = plateau[i][j] * 2;
+                        plateau[i][j-n] = 0;
+                        break;
+                    } else if (plateau[i][j-n] != 0) {
+                        break;
+                    } else {
+                        n += 1;
+                    }
+                }
+            }
+        }
+        for (int j =  plateau[i].size() - 1 ; j >= 0; j--){
+            if (plateau[i][j] != 0){
+                while (j < plateau[i].size() - 1 && plateau[i][j+1] == 0 ){
                     plateau[i][j+1] = plateau[i][j];
                     plateau[i][j] = 0;
-                    j = rangMax;
-                } else if (j < rangMax && plateau[i][j+1] == plateau[i][j]){
-                    plateau[i][j+1] = plateau[i][j+1] * 2;
-                    plateau[i][j] = 0;
-                    rangMax -= 1;
+                    j++;
                 }
             }
         }
@@ -132,19 +151,29 @@ Plateau deplacementDroite(Plateau plateau){
  * @return plateau de type plateau déplacé vers le bas
  **/
 Plateau deplacementBas(Plateau plateau){
-    int rangMax;
-    for (int i = 0; i < 4; i++){
-        rangMax = 3;
-        for (int j = 3; j >= 0; j--){
+    for (int i = 0; i < plateau.size(); i++){
+        for (int j = plateau[i].size() - 1; j > 0; j--){
+            int n = 1;
             if (plateau[j][i] != 0){
-                if (j < rangMax && plateau[j+1][i] == 0 ){
+                while (j - n >= 0){
+                    if (plateau[j-n][i] == plateau[j][i]){
+                        plateau[j][i] = plateau[j][i] * 2;
+                        plateau[j-n][i] = 0;
+                        break;
+                    } else if (plateau[j-n][i] != 0) {
+                        break;
+                    } else {
+                        n += 1;
+                    }
+                }
+            }
+        }
+        for (int j = plateau[i].size() - 1 ; j >= 0; j--){
+            if (plateau[j][i] != 0){
+                while (j < plateau[i].size() - 1 && plateau[j+1][i] == 0 ){
                     plateau[j+1][i] = plateau[j][i];
                     plateau[j][i] = 0;
-                    j = rangMax;
-                } else if (j < rangMax && plateau[j+1][i] == plateau[j][i]){
-                    plateau[j+1][i] = plateau[j+1][i] * 2;
-                    plateau[j][i] = 0;
-                    rangMax -= 1;
+                    j++;
                 }
             }
         }
@@ -161,25 +190,37 @@ Plateau deplacementBas(Plateau plateau){
  * @return plateau de type plateau déplacé vers le haut
  **/
 Plateau deplacementHaut(Plateau plateau){
-    int rangMax;
-    for (int i = 0; i < 4; i++){
-        rangMax = 0;
-        for (int j = 0; j < 4; j++){
+    for (int i = 0; i < plateau.size(); i++){
+        for (int j = 0; j < plateau[i].size() - 1; j++){
+            int n = 1;
             if (plateau[j][i] != 0){
-                if (j > rangMax && plateau[j-1][i] == 0 ){
+                while (j + n < plateau[i].size() ){
+                    if (plateau[j+n][i] == plateau[j][i]){
+                        plateau[j][i] = plateau[j][i] * 2;
+                        plateau[j+n][i] = 0;
+                        break;
+                    } else if (plateau[j+n][i] != 0) {
+                        break;
+                    } else {
+                        n += 1;
+                    }
+                }
+            }
+        }
+        for (int j = 0; j < plateau[i].size(); j++){
+            if (plateau[j][i] != 0){
+                while (j > 0 && plateau[j-1][i] == 0 ){
                     plateau[j-1][i] = plateau[j][i];
                     plateau[j][i] = 0;
-                    j = rangMax;
-                } else if (j > rangMax && plateau[j-1][i] == plateau[j][i]){
-                    plateau[j-1][i] = plateau[j-1][i] * 2;
-                    plateau[j][i] = 0;
-                    rangMax += 1;
+                    j--;
                 }
             }
         }
     }
     return plateau;
 }
+
+
 
 /** Fonction deplacement
  * Déplacement du plateau donné en fonction d'une direction donné
@@ -201,7 +242,7 @@ Plateau deplacement(Plateau plateau, int direction) {
     default:
       endwin();
       cerr << "Merci d'avoir joué! Au revoir!" << endl;
-      exit(-1);
+      exit(0);
   }
 }
 
@@ -211,31 +252,26 @@ Plateau deplacement(Plateau plateau, int direction) {
  * Utilise la variable globale QUATRE
  * 
  * @param plateau la grille de jeu
- * @param deplacement le nombre de dếplacement effectués
+ * @param quatre le nombre de quatre ajoutés au hasard par tireDeuxOuQuatre
  * @return int s le score obtenu pour la grille donné
  **/
-int score(Plateau plateau, int deplacements){
+int score(Partie plateau){
     int s = 0;
     int mult, nbr_case;
-    int deux = 0;
     for (int i = 0; i < 4; i++){
         for (int j = 0; j < 4; j++){
-            if (plateau[i][j] == 2){
-                deux += 1;
-            }
-            if (plateau[i][j] != 0 && plateau[i][j] != 2){
+            if (plateau.plateau[i][j] != 0 && plateau.plateau[i][j] != 2){
                 nbr_case = 4;
                 mult = 1;
-                while (nbr_case != plateau[i][j]){
+                while (nbr_case != plateau.plateau[i][j]){
                     mult += 1;
                     nbr_case = nbr_case * 2;
                 }
-                deux += nbr_case/2;
                 s = s + nbr_case * mult;
             }
         }
     }
-    s = s - (4 * (deux-(deplacements+2)));
+    s = s - (4 * plateau.quatre);  // On soustrait les quatres qui apparaissent sur la grille
     return s;
 }
 
@@ -246,8 +282,9 @@ int score(Plateau plateau, int deplacements){
  * @param plateau le plateau de jeu vide
  * @return le plateau de jeu initialisé
 */
-Plateau plateauInitial(){
-    Plateau plateau = { {0,0,0,0}, {0,0,0,0}, {0,0,0,0}, {0,0,0,0} };
+Partie plateauInitial(){
+    Partie plateau;
+    plateau.plateau = plateauVide();
 	plateau = ajouteDeuxOuQuatre(plateau);
 	plateau = ajouteDeuxOuQuatre(plateau);
 	return plateau;
@@ -457,14 +494,15 @@ void testTireDeuxOuQuatre(){
  **/
 void testAjouteDeuxOuQuatre(){
     for (int x = 1; x <= 5; x++){
-        Plateau plt = { {0,0,0,0}, {0,0,0,0}, {0,0,0,0}, {0,0,0,0} };
+        Partie plt;
+        plt.plateau = { {0,0,0,0}, {0,0,0,0}, {0,0,0,0}, {0,0,0,0} };
         for (int k = 0; k < x; k++){
             plt = ajouteDeuxOuQuatre(plt);
         }
         int a = 0;
         for (int i = 0; i < 4; i++){
             for (int j = 0; j < 4; j++){
-                if (plt[i][j] == 2 || plt[i][j] == 4){
+                if (plt.plateau[i][j] == 2 || plt.plateau[i][j] == 4){
                     a++;
                 }
             }
@@ -560,11 +598,11 @@ void testEstGagnant(){
  **/
 void testPlateauInitial(){
 	Plateau plt = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
-	Plateau traite = plateauInitial();
+	Partie traite = plateauInitial();
 	int compt= 0;
 	for ( int i = 0 ; i < 4 ; i++){
 		for ( int j = 0 ; j < 4 ; j++){
-			if(traite[i][j] == 2 or traite[i][j] == 4){
+			if(traite.plateau[i][j] == 2 or traite.plateau[i][j] == 4){
 				compt += 1;
 			}
 		}
@@ -580,15 +618,13 @@ void testPlateauVide(){
 	assert(plateauVide()==plt3);
 }
 
-
-/**
- ** Test de la fonction score
- **/
 void testScore(){
-    Plateau plt1 = {{4,0,0,0},{0,0,0,4},{0,0,0,0},{0,0,0,4}};
-    Plateau plt2 = {{4,0,0,0},{0,0,0,0},{0,0,0,2},{8,0,0,0}};
-    assert ( score(plt1, 1) == 0  );
-    assert ( score(plt2, 4) == 16 );
+    Partie plt1;
+    plt1.plateau = {{4,0,0,0},{0,0,0,4},{0,0,0,0},{0,0,0,4}};
+    Partie plt2;
+    plt2.plateau = {{4,0,0,0},{0,0,0,0},{0,0,0,2},{8,0,0,0}};
+    assert ( score(plt1) == 0  );
+    assert ( score(plt2) == 16 );
 }
 
 /********************************************************************************/
