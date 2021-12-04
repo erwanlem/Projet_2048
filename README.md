@@ -21,12 +21,12 @@ Installation des librairies:
  
  COMPILATION (MANUELLE):
  
-  1 - g++ -c variante.cpp
-  2 - g++ -c graphic_outils.cpp
-  3 - g++ -c main.cpp
-  4 - g++ -c modele.cpp
-  5 - g++ -c windows.cpp
-  6 - g++ main.o modele.o windows.o variante.o graphic_outils.o -lSDL2_ttf -lSDL2 -lSDL2main -o 2048
+  1. g++ -c variante.cpp
+  2. g++ -c graphic_outils.cpp
+  3. g++ -c main.cpp
+  4. g++ -c modele.cpp
+  5. g++ -c windows.cpp
+  6. g++ main.o modele.o windows.o variante.o graphic_outils.o -lSDL2_ttf -lSDL2 -lSDL2main -o 2048
   
  
  COMPILATION MAKEFILE:
