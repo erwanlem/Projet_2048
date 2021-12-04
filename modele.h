@@ -1,8 +1,15 @@
-#include <vector>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+#include <iostream>
+#include <vector>
+#include <string>
+
 using namespace std;
 
+extern int WIDTH, HEIGHT; // largeur et hauteur de la fenêtre
+
 const int GAUCHE = 113, DROITE = 100, HAUT = 122, BAS = 115;
+
 typedef vector<vector<int>> Plateau;
 
 struct Partie
@@ -58,3 +65,12 @@ Plateau ajouteDeux(Plateau plateau);
 int scoreVariante(Plateau plateau);
 Plateau plateauInitialVariante();
 bool estGagnantVariante(Plateau p);
+
+
+// Fonctions fenêtres du jeu
+
+int victoire(SDL_Renderer * renderer, int game);
+int defaite(SDL_Renderer * renderer, int game);
+int menu(SDL_Renderer * renderer);
+int game(SDL_Renderer * renderer);
+int game_128(SDL_Renderer * renderer);
