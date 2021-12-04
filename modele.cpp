@@ -2,8 +2,6 @@
 #include <vector>
 #include <assert.h>
 #include <cmath>
-#include <time.h>
-#include <conio.h> // Pour getch() (à voir plus tard)
 #include "modele.h"
 
 int QUATRE = 0;
