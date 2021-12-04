@@ -8,14 +8,14 @@ typedef vector<vector<int>> Plateau;
 struct Partie {
     int score;
     Plateau plateau;
-    int deplacements;
+    int quatre = 0;
 };
 
 
 Plateau plateauVide();
-Plateau plateauInitial();
+Partie plateauInitial();
 int tireDeuxOuQuatre();
-Plateau ajouteDeuxOuQuatre(Plateau plateau);
+Partie ajouteDeuxOuQuatre(Partie plateau);
 
 Plateau deplacementGauche(Plateau plateau);
 Plateau deplacementDroite(Plateau plateau);
@@ -26,7 +26,7 @@ Plateau deplacement(Plateau plateau, int direction);
 void dessine(Plateau plateau);
 bool estTermine(Plateau plateau);
 bool estGagnant(Plateau plateau);
-int score(Plateau plateau, int quatre);
+int score(Partie plateau);
 bool estRempli(Plateau plateau);
 void dessineCouleur(string plateau);
 

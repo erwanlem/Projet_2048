@@ -19,24 +19,20 @@ int main(int argc, char const *argv[])
     bool jeu = true;
     int touche, quatre, s;
     Partie plateau;
+    Plateau lastPlateau;
 
     do
     {
-        plateau.plateau = plateauVide();
-        plateau.plateau = plateauInitial();
-        plateau.deplacements  = 0;
+        plateau = plateauInitial();
         while ( !estGagnant(plateau.plateau) &&  !estTermine(plateau.plateau) ){
             clear();
-            printw("Utiliser les flèches pour jouer\nCliquer sur toute autre touche pour quitter\n\n\n\tScore: %d\n\n",score(plateau.plateau, plateau.deplacements));
+            printw("\nUtiliser les flèches pour jouer\nCliquer sur toute autre touche pour quitter\n\n\n\tScore: %d\n\n",score(plateau));
             dessine(plateau.plateau);
             touche = getch();
-            Plateau p = deplacement(plateau.plateau, (int)touche);
-            if ( !estRempli(p) ){
-                p = ajouteDeuxOuQuatre(p);
-            }
-            if (p != plateau.plateau){
-                plateau.deplacements += 1;
-                plateau.plateau = p;
+            lastPlateau = plateau.plateau;
+            plateau.plateau = deplacement(plateau.plateau, (int)touche);
+            if ( !estRempli(plateau.plateau) && lastPlateau != plateau.plateau){
+                plateau = ajouteDeuxOuQuatre(plateau);
             }
             refresh();
        }
