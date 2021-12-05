@@ -333,7 +333,7 @@ bool estTermine(Plateau p){
 bool estGagnant(Plateau p){
 	for(int i=0; i<4; i++){
 		for(int j=0; j<4; j++){
-			if(p[i][j]==2048){
+			if(p[i][j] >= 2048){
 				return true;
 			}
 		}

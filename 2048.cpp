@@ -21,7 +21,7 @@ int main(int argc, char const *argv[])
         plateau = plateauInitial();
         s = 0;
         quatre  = 0;
-        while ( !estGagnant(plateau) &&  !estTermine(plateau) ){
+        while ( !estTermine(plateau) ){
             cout << "\nScore: " << score(plateau) << "\n\n";
             dessine(plateau);
             cout << "\nEntrer commande (z/q/s/d) >>";
