@@ -12,15 +12,11 @@
  **/
 Plateau plateauVideVariante(){
 	Plateau plateau;
-	plateau= Plateau(3);
-	vector<int> lignes;
-	lignes= vector<int>(3);
-	for(int i=0; i<plateau.size(); i++){
-		for(int j=0; j<lignes.size(); j++){
-			lignes[j]=0;
-		}
-		plateau[i]=lignes;
-	}
+	plateau = {
+        {0, 0, 0},
+        {0, 0, 0},
+        {0, 0, 0}
+    }
 	return plateau;
 }
 
@@ -83,7 +79,7 @@ int scoreVariante(Plateau plateau){
  * @return le plateau de jeu initialisé
 */
 Plateau plateauInitialVariante(){
-    Plateau plateau = { {0,0,0}, {0,0,0}, {0,0,0} };
+    Plateau plateau =  plateauVideVariante();
 	plateau = ajouteDeux(plateau);
 	plateau = ajouteDeux(plateau);
 	return plateau;
@@ -112,3 +108,87 @@ bool estGagnantVariante(Plateau p){
 
 
 
+/********************************************************************************/ 
+/**************************** TEST DES FONCTIONS ********************************/
+/********************************************************************************/ 
+
+
+
+/**
+ * Test de la fonction estGagnantVariante
+ */
+void testEstGagnantVariante(){
+    Plateau p1 = { {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
+    Plateau p2 = { {0, 2, 0, 4}, {8, 0, 16, 0}, {0, 2, 2, 0}, {4, 0, 0, 8}};
+    Plateau p3 = { {2, 0, 0, 0}, {4, 2, 0, 2}, {0, 2, 0, 32}, {0, 0, 128, 0}};
+
+    assert( estGagnantVariante(p1) == false);
+    assert( estGagnantVariante(p2) == false);
+    assert( estGagnantVariante(p3) == true);
+}
+
+
+/**
+ * Test de la fonction plateauVideVariante
+ */
+void testPlateauVideVariante(){
+    Plateau p1 = plateauVideVariante();
+    assert ( p1 == { {0, 0, 0}, {0, 0, 0}, {0, 0, 0} } );
+}
+
+/**
+ * Test de la fonction plateauInitialVariante
+ */
+void testPlateauInitialVariante() {
+    Plateau plt = plateauVideVariante();
+	Plateau traite = plateauInitialVariante();
+	int compt= 0;
+	for ( int i = 0 ; i < 3 ; i++ ) {
+		for ( int j = 0 ; j < 3 ; j++ ) {
+			if(traite[i][j] == 2) {
+				compt += 1;
+			}
+		}
+	}
+	assert (compt == 2);
+}
+
+
+/**
+ * Test de la fonction ajouteDeux
+ */
+void testAjouteDeux(){
+    Plateau p1 = plateauVideVariante();
+    Plateau p2 = plateauVideVariante();
+    p1 = ajouteDeux(p1);
+    p2 = ajouteDeux(p2);
+    p2 = ajouteDeux(p2);
+    p2 = ajouteDeux(p2);
+    int p1_deux = 0;
+    int p2_deux = 0;
+    for (int i = 0; i < 3; i++ ){
+        for ( int j = 0; j < 3; i++ ){
+            if ( p1[i][j] == 2 ){
+                p1_deux += 1;
+            }
+            if ( p2[i][j] == 2){
+                p2_deux += 1;
+            }
+        }
+    }
+    assert ( p1_deux == 1);
+    assert ( p2_deux == 3);
+}
+
+/**
+ * Test de la fonction scoreVariante
+ */
+void testScoreVraiante() {
+    Plateau p1 = plateauVideVariante();
+    Plateau p2 = { {0, 8, 0}, {0, 0, 0}, {2, 4, 0} };
+    Plateau p3 = { {4, 8, 0}, {32, 0, 8}, {2, 4, 0} };
+
+    assert ( scoreVariante(p3) == 168 );
+    assert ( scoreVariante(p1) == 0 );
+    assert (scoreVariante(p2) == 20 );
+}

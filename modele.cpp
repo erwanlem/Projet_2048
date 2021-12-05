@@ -388,6 +388,9 @@ void testTireDeuxOuQuatre(){
     assert( a == 9 && b == 1);
 }
 
+
+
+
 /** testAjouteDeuxOuQuatre
  * Test de la fonction ajouteDeuxOuQuatre
  * 
@@ -412,6 +415,8 @@ void testAjouteDeuxOuQuatre(){
     }
 }
 
+
+
 /** testDeplacementGauche
  * Test de la fonction deplacementGauche
  **/
@@ -423,6 +428,8 @@ void testDeplacementGauche(){
     assert( deplacementGauche(plt1) == plt1_gauche );
     assert( deplacementGauche(plt2) == plt2_gauche );
 }
+
+
 
 /** testDeplacementDroite
  * Test de la fonction deplacementDroite
@@ -437,6 +444,8 @@ void testDeplacementDroite(){
     assert( deplacementDroite(plt2) == plt2_droite );
 }
 
+
+
 /** testDeplacementHaut
  * Test de la fonction deplacementHaut
  **/
@@ -449,6 +458,8 @@ void testDeplacementHaut(){
     assert( deplacementHaut(plt2) == plt2_haut );
 }
 
+
+
 /** testDeplacementBas
  * Test de la fonction deplacementBas
  **/
@@ -460,6 +471,8 @@ void testDeplacementBas(){
     assert( deplacementBas(plt1) == plt1_bas );
     assert( deplacementBas(plt2) == plt2_bas );
 }
+
+
 
 /**
  * Test de la fonction Deplacement
@@ -476,6 +489,8 @@ void testDeplacement(){
     assert( deplacement(plt, BAS)    == plt_bas    );
 }
 
+
+
 /**
  * Test de la fonction estTermine
  **/
@@ -484,6 +499,8 @@ void testEstTermine(){
 	assert(not(estTermine({{2,4,2,4},{4,2,4,2},{2,4,2,4},{4,2,0,2}})));
 	assert(not(estTermine({{2,4,2,4},{4,2,4,2},{2,4,2,4},{4,2,2,2}})));
 }
+
+
 
 /**
  * Test de la fonction estGagnant
@@ -494,6 +511,8 @@ void testEstGagnant(){
 	assert ( not(estGagnant(plt0)));
 	assert ( estGagnant(plt1));
 }
+
+
 
 /**
  * Test de la fonction plateauInitial
@@ -511,6 +530,8 @@ void testPlateauInitial(){
 	}
 	assert (compt == 2);
 }
+
+
 
 /**
  ** Test de la fonction plateauVide
