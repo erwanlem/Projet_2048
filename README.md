@@ -49,7 +49,7 @@ Installation des librairies:
           Fonctions adaptées pour la variante du jeu (128 chrono). Les fonctions sont dérivées des fonctions de modele.cpp
     data :
           Contient les données de sauvegarde des meilleurs parties. On a dans l'ordre :
-                                                                                    - score (dernière partie jouée)
-                                                                                    - temps (dernière partie jouée de 128 chrono)
-                                                                                    - meilleurs score
-                                                                                    - meilleurs temps (128 chrono)
+                                                                              - score (dernière partie jouée)
+                                                                              - temps (dernière partie jouée de 128 chrono)
+                                                                              - meilleurs score
+                                                                              - meilleurs temps (128 chrono)

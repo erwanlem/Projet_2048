@@ -304,7 +304,7 @@ int defaite(SDL_Renderer * renderer, int game){
  * @param renderer la zone de rendu
  * @return int un entier correspondant à l'action à affectuer à la fin de cette fonction
  */
-int menu(SDL_Renderer * renderer){
+int menu(SDL_Renderer * renderer, SDL_Window * window){
     SDL_Color white = {255, 255, 255, 255};
     Uint32 last_time;
     Uint32 current_time;
@@ -324,12 +324,12 @@ int menu(SDL_Renderer * renderer){
     int button_h = pourcentage(20, HEIGHT);
     SDL_Rect play_button = {WIDTH/2 - button_w/2, HEIGHT/8 * 3, button_w, button_h};
     SDL_Rect opt_button  = {WIDTH/2 - button_w/2, HEIGHT/8 * 5, button_w, button_h};
-    SDL_Rect quit_button = {10, HEIGHT-60, pourcentage(12, WIDTH), pourcentage(9, HEIGHT)};
+    SDL_Rect quit_button = {pourcentage(3, WIDTH), HEIGHT - pourcentage(12, HEIGHT), pourcentage(12, WIDTH), pourcentage(9, HEIGHT)};
 
     // Emplacement du texte
     SDL_Rect play_button_text = {WIDTH/2 - button_w/2 + ((play_button.w - (int)(button_w*0.7))/2), (HEIGHT/8 * 3 + (play_button.h - (int)(button_h*0.8))/2), (button_w*70)/100, (button_h*80)/100};
     SDL_Rect opt_button_text  = {WIDTH/2 - button_w/2 + ((opt_button.w - (int)(button_w*0.8))/2), (HEIGHT/8 * 5 + (opt_button.h - (int)(button_h*0.8))/2), (button_w*80)/100, (button_h*80)/100};
-    SDL_Rect quit_button_text = {10 + ((quit_button.w - pourcentage(10, WIDTH))/2), ((HEIGHT-60) + (quit_button.h - pourcentage(6, HEIGHT))/2), pourcentage(10, WIDTH), pourcentage(6, HEIGHT)};
+    SDL_Rect quit_button_text = {pourcentage(3, WIDTH) + ((quit_button.w - pourcentage(10, WIDTH))/2), ((HEIGHT - pourcentage(12, HEIGHT)) + (quit_button.h - pourcentage(6, HEIGHT))/2), pourcentage(10, WIDTH), pourcentage(6, HEIGHT)};
     
     // Paramètres du titre (2048) et chargement des coordonnées
     int taille_block = pourcentage(3.5, (WIDTH + HEIGHT) / 2);
@@ -387,6 +387,12 @@ int menu(SDL_Renderer * renderer){
                 btn3_color = button_over_default_color;
             } else {
                 btn3_color = button_default_color;
+            }
+        }
+        if (e.type == SDL_WINDOWEVENT) {
+            if (e.window.event == SDL_WINDOWEVENT_RESIZED){
+                SDL_GetWindowSize(window, &WIDTH, &HEIGHT);
+                return 1;
             }
         }
 
@@ -542,7 +548,7 @@ int game(SDL_Renderer * renderer){
     char const * scr;
     string scr_str;
     SDL_Texture * score_txt = create_text(renderer, s, white);
-    SDL_Rect score_rect     = {20, 20, pourcentage(10, WIDTH), pourcentage(6, HEIGHT)};
+    SDL_Rect score_rect     = {pourcentage(2, WIDTH), pourcentage(4, HEIGHT), pourcentage(10, WIDTH), pourcentage(6, HEIGHT)};
 
     
 
@@ -582,6 +588,9 @@ int game(SDL_Renderer * renderer){
                     scr               = scr_str.c_str();
                     score_txt         = create_text(renderer, (char*)scr, white);
                     grilleTextTexture = textFromPlateau(renderer, plateau.plateau, white, grilleTextTexture);
+                    if (score(plateau) >= 1000){
+                        score_rect.w = pourcentage(14, WIDTH);
+                    }
                     break;
                 case 80:
                     plateau.plateau = deplacement(plateau.plateau, GAUCHE);
@@ -594,6 +603,9 @@ int game(SDL_Renderer * renderer){
                     scr               = scr_str.c_str();
                     score_txt         = create_text(renderer, (char*)scr, white);
                     grilleTextTexture = textFromPlateau(renderer, plateau.plateau, white, grilleTextTexture);
+                    if (score(plateau) >= 1000){
+                        score_rect.w = pourcentage(14, WIDTH);
+                    }
                     break;
                 case 81:
                     plateau.plateau = deplacement(plateau.plateau, BAS);
@@ -606,6 +618,9 @@ int game(SDL_Renderer * renderer){
                     scr               = scr_str.c_str();
                     score_txt         = create_text(renderer, (char*)scr, white);
                     grilleTextTexture = textFromPlateau(renderer, plateau.plateau, white, grilleTextTexture);
+                    if (score(plateau) >= 1000){
+                        score_rect.w = pourcentage(14, WIDTH);
+                    }
                     break;
                 case 82:
                     plateau.plateau = deplacement(plateau.plateau, HAUT);
@@ -618,6 +633,9 @@ int game(SDL_Renderer * renderer){
                     scr               = scr_str.c_str();
                     score_txt         = create_text(renderer, (char*)scr, white);
                     grilleTextTexture = textFromPlateau(renderer, plateau.plateau, white, grilleTextTexture);
+                    if (score(plateau) >= 1000){
+                        score_rect.w = pourcentage(14, WIDTH);
+                    }
                     break;
                 default:
                     break;
@@ -801,12 +819,6 @@ int game_128(SDL_Renderer * renderer){
     SDL_Rect rect;
     SDL_Rect rect1;
 
-    // Affichage du score
-    char s[] = "Score: 0";
-    char const * scr;
-    string scr_str;
-    SDL_Texture * score_txt = create_text(renderer, s, white);
-    SDL_Rect score_rect     = {20, 20, pourcentage(10, WIDTH), pourcentage(6, HEIGHT)};
 
     // CHRONO
     string str_chrono1;
@@ -815,8 +827,8 @@ int game_128(SDL_Renderer * renderer){
     char const * chrono_affiche;
     string point = ".";
     string point2 = ":";
-    SDL_Rect chrono_rect     = {80, 100, pourcentage(10, WIDTH), pourcentage(6, HEIGHT)};
-    char t[] = "00:00.00";
+    SDL_Rect chrono_rect = {pourcentage(4, WIDTH), pourcentage(8, HEIGHT), pourcentage(22, WIDTH), pourcentage(8, HEIGHT)};
+    char t[] = "Temps: 00:00.00";
     int chrono_min = 0;
     int chrono_ms = 0;
     int chrono_s = 0;
@@ -830,6 +842,7 @@ int game_128(SDL_Renderer * renderer){
     */
     bool up = true;
 
+    bool play = false;
     
     /* -- -- -- -- -- -- -- -- -- -- -- -- -- */
     /*            BOUCLE EVENEMENTS           */
@@ -842,11 +855,11 @@ int game_128(SDL_Renderer * renderer){
             game = false;
         } else if (e.type == SDL_KEYDOWN){
             if (up != false){
+                play = true;
                 lastPlateau = plateau;
                 switch (e.key.keysym.scancode)
                 {
                 case 41:
-                    SDL_DestroyTexture(score_txt);
                     return 1;
                     break;
                 case 79:
@@ -856,10 +869,6 @@ int game_128(SDL_Renderer * renderer){
                     if ( !estRempli(plateau) && lastPlateau != plateau ){
                         plateau = ajouteDeux(plateau);
                     }
-                    scr_str           = to_string(scoreVariante(plateau));
-                    scr_str           = "Score: " + scr_str;
-                    scr               = scr_str.c_str();
-                    score_txt         = create_text(renderer, (char*)scr, white);
                     grilleTextTexture = textFromPlateau(renderer, plateau, white, grilleTextTexture);
                     break;
                 case 80:
@@ -868,10 +877,6 @@ int game_128(SDL_Renderer * renderer){
                     if ( !estRempli(plateau) && lastPlateau != plateau ){
                         plateau = ajouteDeux(plateau);
                     }
-                    scr_str           = to_string(scoreVariante(plateau));
-                    scr_str           = "Score: " + scr_str;
-                    scr               = scr_str.c_str();
-                    score_txt         = create_text(renderer, (char*)scr, white);
                     grilleTextTexture = textFromPlateau(renderer, plateau, white, grilleTextTexture);
                     break;
                 case 81:
@@ -880,10 +885,6 @@ int game_128(SDL_Renderer * renderer){
                     if ( !estRempli(plateau) && lastPlateau != plateau ){
                         plateau = ajouteDeux(plateau);
                     }
-                    scr_str           = to_string(scoreVariante(plateau));
-                    scr_str           = "Score: " + scr_str;
-                    scr               = scr_str.c_str();
-                    score_txt         = create_text(renderer, (char*)scr, white);
                     grilleTextTexture = textFromPlateau(renderer, plateau, white, grilleTextTexture);
                     break;
                 case 82:
@@ -892,10 +893,6 @@ int game_128(SDL_Renderer * renderer){
                     if ( !estRempli(plateau) && lastPlateau != plateau ){
                         plateau = ajouteDeux(plateau);
                     }
-                    scr_str           = to_string(scoreVariante(plateau));
-                    scr_str           = "Score: " + scr_str;
-                    scr               = scr_str.c_str();
-                    score_txt         = create_text(renderer, (char*)scr, white);
                     grilleTextTexture = textFromPlateau(renderer, plateau, white, grilleTextTexture);
                     break;
                 default:
@@ -973,45 +970,46 @@ int game_128(SDL_Renderer * renderer){
                 y++;
             }
         }
-        SDL_RenderCopy(renderer, score_txt, NULL, &score_rect);
         
-        currentTime = SDL_GetTicks();
-        if (currentTime > lastTime + 10){
-            chrono_ms += 1;
-            if (chrono_ms >= 100){
-                chrono_ms = 0;
-                chrono_s += 1;
+        if (play){
+            currentTime = SDL_GetTicks();
+            if (currentTime > lastTime + 10){
+                chrono_ms += 1;
+                if (chrono_ms >= 100){
+                    chrono_ms = 0;
+                    chrono_s += 1;
+                }
+                if (chrono_s >= 60){
+                    chrono_s = 0;
+                    chrono_min += 1;
+                }
+                str_chrono1 = to_string(chrono_ms);
+                str_chrono2 = to_string(chrono_s);
+                str_chrono3 = to_string(chrono_min);
+                if (chrono_min < 10){
+                    str_chrono3 = "0" + str_chrono3;
+                }
+                if (chrono_s < 10){
+                    str_chrono3 = str_chrono3 + point2 + "0" + str_chrono2;
+                } else {
+                    str_chrono3 = str_chrono3 + point2 + str_chrono2;
+                }
+                if (chrono_ms < 10){
+                    str_chrono3 = str_chrono3 + point + "0" + str_chrono1;
+                } else {
+                    str_chrono3 = str_chrono3 + point + str_chrono1;
+                }
+                str_chrono3 = "Temps: " + str_chrono3;
+                chrono_affiche = str_chrono3.c_str();
+                chrono_txt = create_text(renderer, (char*)chrono_affiche, white);
+                lastTime = currentTime;
             }
-            if (chrono_s >= 60){
-                chrono_s = 0;
-                chrono_min += 1;
-            }
-            str_chrono1 = to_string(chrono_ms);
-            str_chrono2 = to_string(chrono_s);
-            str_chrono3 = to_string(chrono_min);
-
-            if (chrono_min < 10){
-                str_chrono3 = "0" + str_chrono3;
-            }
-            if (chrono_s < 10){
-                str_chrono3 = str_chrono3 + point2 + "0" + str_chrono2;
-            } else {
-                str_chrono3 = str_chrono3 + point2 + str_chrono2;
-            }
-            if (chrono_ms < 10){
-                str_chrono3 = str_chrono3 + point + "0" + str_chrono1;
-            } else {
-                str_chrono3 = str_chrono3 + point + str_chrono1;
-            }
-            chrono_affiche = str_chrono3.c_str();
-            chrono_txt = create_text(renderer, (char*)chrono_affiche, white);
-            lastTime = currentTime;
         }
+
         SDL_RenderCopy(renderer, chrono_txt, NULL, &chrono_rect);
 
         SDL_RenderPresent(renderer);
     }
-    SDL_DestroyTexture(score_txt);
     return 0;
 }
 /* ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------ ------  */

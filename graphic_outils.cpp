@@ -1,10 +1,8 @@
 #include "modele.h"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
-#include <iostream>
 #include <vector>
 #include <string>
 #include <fstream>
+#include <assert.h>
 
 /**
  * @brief renvoie une valeur correspondant au poucentage d'une valeur donnée
@@ -21,7 +19,7 @@ int pourcentage(int p, int size){
 /**
  * @brief Permet d'échanger les données avec le fichier data
  * 
- * @param cat la catégorie de la donnée en écriture (0: score, 1: temps, 2 meilleurs score, 3 meilleurs temps)
+ * @param cat la catégorie de la donnée en écriture (0: score, 1: temps, 2: meilleurs score, 3: meilleurs temps)
  * @param data la donnée à ajouter
  * @param action 1 pour lire le fichier, 2 pour écrire
  * @return vector<int> les données lu ou les nouvelles données modifiées
@@ -36,11 +34,13 @@ vector<int> transfertFichier(int cat, int data, int action){
     rfichier >> read[2];
     rfichier >> read[3];
     rfichier.close();
-    if (action == 1){
+
+    if ( action == 1 ){
         return read;
     } else if (action == 2){
         ofstream wfichier;
         wfichier.open("data");
+
         if (cat == 0){
             read[0] = data;
             wfichier << read[0] << "\n" << read[1] << "\n" << read[2] << "\n" << read[3];
@@ -54,6 +54,7 @@ vector<int> transfertFichier(int cat, int data, int action){
             read[3] = data;
             wfichier << read[0] << "\n" << read[1] << "\n" << read[2] << "\n" << read[3];
         }
+
         wfichier.close();
     }
     return read;
@@ -200,7 +201,6 @@ vector<vector<int>> titre_menu(int pourcentage_x, int taille_block){
 
 
 
-
 /**
  * @brief transforme le vecteur plateau en un vecteur de textures à afficher à l'écran
  * 
@@ -230,4 +230,33 @@ vector<SDL_Texture*> textFromPlateau(SDL_Renderer * renderer, Plateau plateau, S
         }
     }
     return textureTextTable;
+}
+
+
+
+
+
+
+/********************************************************************************/ 
+/**************************** TEST DES FONCTIONS ********************************/
+/********************************************************************************/ 
+
+
+/**
+ * Test de la fonction pourcentage
+ */
+void testPourcentage() {
+    assert ( pourcentage(50, 400) == 200 );
+    assert ( pourcentage(0, 500) == 0);
+    assert ( pourcentage(100, 222) == 222);
+}
+
+/**
+ * Test de la fonction touche_bouton
+ */
+void testTouche_bouton() {
+    SDL_Rect r1 = {10, 10, 50, 20};
+    assert ( touche_bouton(r1, 0, 0) == false );
+    assert ( touche_bouton(r1, 12, 15) == true );
+    assert ( touche_bouton(r1, 30, 60) == true );
 }

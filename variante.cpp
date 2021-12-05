@@ -16,7 +16,7 @@ Plateau plateauVideVariante(){
         {0, 0, 0},
         {0, 0, 0},
         {0, 0, 0}
-    }
+    };
 	return plateau;
 }
 
@@ -133,7 +133,8 @@ void testEstGagnantVariante(){
  */
 void testPlateauVideVariante(){
     Plateau p1 = plateauVideVariante();
-    assert ( p1 == { {0, 0, 0}, {0, 0, 0}, {0, 0, 0} } );
+    Plateau p1_test = { {0, 0, 0}, {0, 0, 0}, {0, 0, 0} };
+    assert ( p1 == p1_test );
 }
 
 /**
@@ -190,5 +191,5 @@ void testScoreVraiante() {
 
     assert ( scoreVariante(p3) == 168 );
     assert ( scoreVariante(p1) == 0 );
-    assert (scoreVariante(p2) == 20 );
+    assert ( scoreVariante(p2) == 20 );
 }
