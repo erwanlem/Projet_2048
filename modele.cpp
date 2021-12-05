@@ -1,8 +1,9 @@
 #include <iostream>
 #include <assert.h>
 #include <cmath>
-#include "modele.h"
 #include <ncurses.h>
+#include "modele.h"
+
 
 using namespace std;
 
@@ -239,10 +240,11 @@ Plateau deplacement(Plateau plateau, int direction) {
       return deplacementHaut(plateau);
     case BAS:
       return deplacementBas(plateau);
+    case 27:
+        endwin();
+        exit(0);
     default:
-      endwin();
-      cerr << "Merci d'avoir joué! Au revoir!" << endl;
-      exit(0);
+      return plateau;
   }
 }
 
@@ -313,22 +315,28 @@ void afficheLignePleine(){
  * @return une ligne de type string
 */
 void afficheLigneNombre(vector<int> line){
+    init_color(20, 1000, 500, 0);
+    init_color(21, 1000, 0, 1000);
+    init_color(22, 0, 1000, 1000);
+    init_pair(12, COLOR_YELLOW, COLOR_BLACK);
     init_pair(1, COLOR_BLUE, COLOR_BLACK);
-	init_pair(0, COLOR_WHITE, COLOR_BLACK);
 	init_pair(2, COLOR_GREEN, COLOR_BLACK);
 	init_pair(3, COLOR_RED, COLOR_BLACK);
 	init_pair(4, COLOR_YELLOW, COLOR_BLACK);
 	init_pair(5, COLOR_CYAN, COLOR_BLACK);
 	init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
+    init_pair(7, 20, COLOR_BLACK);
+    init_pair(8, 21, COLOR_BLACK);
+    init_pair(9, 22, COLOR_BLACK);
 
-    attron(COLOR_PAIR(0));
+    attron(COLOR_PAIR(12));
     printw("*");
-    attroff(COLOR_PAIR(0));
+    attroff(COLOR_PAIR(12));
 	for(int i=0; i<4; i++){
 		if(line[i]==0){
-            attron(COLOR_PAIR(0));
+            attron(COLOR_PAIR(12));
 			printw("     *");
-            attroff(COLOR_PAIR(0));
+            attroff(COLOR_PAIR(12));
 		} else {
             int couleur = 1;
             int nb_case = 2;
@@ -336,7 +344,7 @@ void afficheLigneNombre(vector<int> line){
             {
                 couleur += 1;
                 nb_case = nb_case * 2;
-                if (couleur > 6){
+                if (couleur > 9){
                     couleur = 1;
                 }
             }
@@ -353,9 +361,9 @@ void afficheLigneNombre(vector<int> line){
                 printw("%d" , line[i]);
             }
             attroff(COLOR_PAIR(couleur));
-            attron(COLOR_PAIR(0));
+            attron(COLOR_PAIR(12));
             printw("*");
-            attroff(COLOR_PAIR(0));
+            attroff(COLOR_PAIR(12));
         }
 	}
 	printw("\n");
@@ -411,7 +419,7 @@ bool estTermine(Plateau p){
 bool estGagnant(Plateau p){
 	for(int i=0; i<4; i++){
 		for(int j=0; j<4; j++){
-			if(p[i][j]==2048){
+			if(p[i][j]>=2048){
 				return true;
 			}
 		}
@@ -588,7 +596,7 @@ void testEstTermine(){
  **/
 void testEstGagnant(){
 	Plateau plt0={{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
-	Plateau plt1={{2,2,2,2},{2,2048,2,2},{2,2,2,2},{2,2,2,2}};
+	Plateau plt1={{2,2,2,2},{2,4096,2,2},{2,2,2,2},{2,2,2,2}};
 	assert ( not(estGagnant(plt0)));
 	assert ( estGagnant(plt1));
 }
