@@ -856,8 +856,8 @@ int game_128(SDL_Renderer * renderer){
         if (e.type == SDL_QUIT){
             game = false;
         } else if (e.type == SDL_KEYDOWN){
+            play = true;
             if (up != false){
-                play = true;
                 lastPlateau = plateau;
                 switch (e.key.keysym.scancode)
                 {
@@ -1003,13 +1003,13 @@ int game_128(SDL_Renderer * renderer){
                 }
                 str_chrono3 = "Temps: " + str_chrono3;
                 chrono_affiche = str_chrono3.c_str();
+                SDL_DestroyTexture(chrono_txt);
                 chrono_txt = create_text(renderer, (char*)chrono_affiche, white);
                 lastTime = currentTime;
             }
         }
 
         SDL_RenderCopy(renderer, chrono_txt, NULL, &chrono_rect);
-
         SDL_RenderPresent(renderer);
     }
     return 0;

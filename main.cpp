@@ -20,8 +20,6 @@ int WIDTH, HEIGHT;
 
 int main(int argc, char const *argv[])
 {
-    void testPourcentage();
-    void testTouche_bouton();
 
     srand(time(0));
 
