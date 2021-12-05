@@ -777,11 +777,12 @@ int game(SDL_Renderer * renderer){
 
 /**
  * Fonction du jeu 128 chrono !
+ * @author Erwan Lemattre
  * @bug    Fonction difficilement testable par une autre fonction de test
  *         Les tests sont donc effectués en interface graphique.
  *         Pas de bug rencontré mais tous les cas ne peuvent pas forcément être traités.
  *         Confiance: 7/10
-
+ * 
  * @param renderer la zone de dessin
  * @return int un entier correspondant à l'action à affectuer à la fin de la fonction
  */
