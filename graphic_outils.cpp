@@ -6,6 +6,9 @@
 
 /**
  * @brief renvoie une valeur correspondant au poucentage d'une valeur donnée
+ * @author Erwan Lemattre
+ * @bug Fonction testée, pas de bug repéré
+ *      Confiance: 9.5/10
  * 
  * @param p un entier, pourcentage désiré 
  * @param size un entier, l'élément dont on veut p%
@@ -18,6 +21,9 @@ int pourcentage(int p, int size){
 
 /**
  * @brief Permet d'échanger les données avec le fichier data
+ * @author Erwan Lemattre
+ * @bug Fonction non testée. Tests affectués en interface graphique (en jeu), pas de bug repéré
+ *      Confiance: 9/10
  * 
  * @param cat la catégorie de la donnée en écriture (0: score, 1: temps, 2: meilleurs score, 3: meilleurs temps)
  * @param data la donnée à ajouter
@@ -64,6 +70,9 @@ vector<int> transfertFichier(int cat, int data, int action){
 
 /**
  * @brief verifie si (x, y) est sur le rectangle
+ * @author Erwan Lemattre
+ * @bug Fonction testée, pas de problème repéré
+ *      Confiance: 9.5/10
  * 
  * @param btn le rectangle
  * @param x un entier, la position x
@@ -83,6 +92,9 @@ bool touche_bouton(SDL_Rect btn, int x, int y){
 
 /**
  * Créer une texture d'un texte
+ * @author Erwan Lemattre
+ * @bug Fonction non testée (tests difficilement réalisables), pas de problème repéré
+ *      Confiance: 9/10
  * 
  * @param renderer la zone de rendu
  * @param text le texte à afficher
@@ -102,39 +114,28 @@ SDL_Texture * create_text(SDL_Renderer * renderer, char * text, SDL_Color color,
 }
 
 
-
-SDL_Texture * genere_cube(SDL_Renderer * renderer){
-    int cube = rand()%3;
-    SDL_Color deux = {52, 73, 94};
-    SDL_Color quatre = {149, 165, 166};
-    SDL_Color huit = {211, 84, 0};
-    SDL_Texture * texture;
-    char nbr2[] = "2";
-    char nbr4[] = "4";
-    char nbr8[] = "8";
-    switch (cube)
-    {
-    case 0:
-        texture = create_text(renderer, nbr2, deux);
-        break;
-    case 1:
-        texture = create_text(renderer, nbr4, quatre);
-        break;
-    case 2:
-        texture = create_text(renderer, nbr8, huit);
-        break;
-    default:
-        texture = create_text(renderer, nbr8, huit);
-        break;
-    }
-    return texture;
-}
+/**
+ * Créer une texture d'un texte
+ * @author Erwan Lemattre
+ * @bug Fonction non testée (tests difficilement réalisables), pas de problème repéré
+ *      Confiance: 9/10
+ * 
+ * @param renderer la zone de rendu
+ * @param text le texte à afficher
+ * @param color couleur du texte
+ * @param font_size taille du texte (plus élevée = meilleurs qualité)
+ * @return SDL_Texture* la texture finale
+ */
 
 
 
 
-
-/** Génère le tableau contenant les coordonnées des cubes du titre
+/** 
+ * Génère le tableau contenant les coordonnées des cubes du titre
+ * @author Erwan Lemattre
+ * @bug Pas de problème repéré
+ *      Confiance: 10/10
+ * 
  * @param pourcentage_x un entier correspondant à la marge à gauche
  * @param taille_block une entier donnant la taille des cubes
  * @return le vecteur contenant les blocks
@@ -203,6 +204,9 @@ vector<vector<int>> titre_menu(int pourcentage_x, int taille_block){
 
 /**
  * @brief transforme le vecteur plateau en un vecteur de textures à afficher à l'écran
+ * @author Erwan Lemattre
+ * @bug Pas de problème repéré
+ *      Confiance: 8.5/10
  * 
  * @param renderer la zone de rendu
  * @param plateau le plateau de jeu

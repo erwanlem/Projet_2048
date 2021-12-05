@@ -24,6 +24,8 @@ Plateau plateauVide(){
 
 
 /** Fonction TireDeuxOuQuatre
+ * @author Erwan Lemattre
+ * 
  * Fonction renvoyant 2 avec une proba de 8/10 ou 4 avec une proba de 2/10
  * 
  * @return un entier: soit 2, soit 4
@@ -44,6 +46,7 @@ int tireDeuxOuQuatre(){
 /** Fonction ajouteDeuxOuQuatre
  * Permet de choisir aléatoirement une case vide dans
  * le plateau et d'y ajouter soit 2, soit 4
+ * @author Erwan Lemattre
  * 
  * @param plateau le plateau à modifier
  * @return le plateau avec une nouvelle case remplie
@@ -67,6 +70,7 @@ Partie ajouteDeuxOuQuatre(Partie plateau){
 
 /** Fonction deplacementGauche
  * Déplacement du plateau vers la gauche
+ * @author Erwan Lemattre
  * 
  * @param plateau de type Plateau, le plateau de jeu
  * @return plateau de type plateau déplacé vers la gauche
@@ -106,6 +110,7 @@ Plateau deplacementGauche(Plateau plateau){
 
 /** Fonction deplacementDroite
  * Déplacement du plateau vers la droite
+ * @author Erwan Lemattre
  * 
  * @param plateau de type Plateau, le plateau de jeu
  * @return plateau de type plateau déplacé vers la droite
@@ -145,6 +150,7 @@ Plateau deplacementDroite(Plateau plateau){
 
 /** Fonction deplacementBas
  * Déplacement du plateau vers le bas
+ * @author Erwan Lemattre
  * 
  * @param plateau de type Plateau, le plateau de jeu
  * @return plateau de type plateau déplacé vers le bas
@@ -184,6 +190,7 @@ Plateau deplacementBas(Plateau plateau){
 
 /** Fonction deplacementHaut
  * Déplacement du plateau vers le haut
+ * @author Erwan Lemattre
  * 
  * @param plateau de type Plateau, le plateau de jeu
  * @return plateau de type plateau déplacé vers le haut
@@ -221,6 +228,7 @@ Plateau deplacementHaut(Plateau plateau){
 
 /** Fonction deplacement
  * Déplacement du plateau donné en fonction d'une direction donné
+ * @author Fonction du projet
  * 
  * @param plateau de type Plateau, le plateau de jeu
  * @param direction un entier indiquant la direction dans laquelle bouger le plateau
@@ -246,6 +254,7 @@ Plateau deplacement(Plateau plateau, int direction) {
 /** Fonction score
  * Permet de calculer le score d'un plateau donné
  * Utilise la variable globale QUATRE
+ * @author Erwan Lemattre
  * 
  * @param plateau la grille de jeu
  * @param quatre le nombre de quatre ajoutés au hasard par tireDeuxOuQuatre
@@ -275,6 +284,8 @@ int score(Partie plateau){
 
 /** Fonction plateauInitial
  * Initialise le plateau
+ * 
+ * 
  * @param plateau le plateau de jeu vide
  * @return le plateau de jeu initialisé
 */
@@ -345,8 +356,9 @@ bool estGagnant(Plateau p){
 
 /** Fonction estRempli 
  * Vérifie si la grille est pleine
- * @param plateau le plateau de jeu
+ * @author Erwan Lemattre
  * 
+ * @param plateau le plateau de jeu
  * @return true si le grille est pleine, false sinon
  **/ 
 bool estRempli(Plateau plateau){
