@@ -28,7 +28,7 @@ int main(int argc, char const *argv[])
         init_pair(10, COLOR_BLUE, COLOR_BLACK);
         init_pair(11, COLOR_RED, COLOR_BLACK);
         plateau = plateauInitial();
-        while ( !estGagnant(plateau.plateau) &&  !estTermine(plateau.plateau) ){
+        while ( !estTermine(plateau.plateau) ){
             clear();
             attron(COLOR_PAIR(10));
             printw("\n\n ################## 2048 ##################\n #### Utiliser les flèches pour jouer #####\n #### Cliquer sur echap pour quitter  #####");
@@ -47,7 +47,7 @@ int main(int argc, char const *argv[])
        }
        clear();
        dessine(plateau.plateau);
-       if (estGagnant(plateau.plateau) && estTermine(plateau.plateau)){
+       if ( estGagnant(plateau.plateau) ){
            printw("\n\n\tVous avez gagné !\nVous pouvez continuer de jouer...\n");
        } else {
            printw("\nOups... Vous avez perdu\n");
