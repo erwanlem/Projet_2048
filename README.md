@@ -11,8 +11,8 @@ Installation librairie(s):
       
 COMPILATION:
 
-  1 - g++ -c 2048.cpp
-  2 - g++ -c modele.cpp
-  3 - g++ modele.o 2048.o -lncurses -o 2048
+  1. g++ -c 2048.cpp
+  2. g++ -c modele.cpp
+  3. g++ modele.o 2048.o -lncurses -o 2048
   
 
