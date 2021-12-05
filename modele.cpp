@@ -332,9 +332,9 @@ bool estTermine(Plateau p){
  * @return true si la partie est gagnée, false sinon
  **/
 bool estGagnant(Plateau p){
-	for(int i=0; i<4; i++){
-		for(int j=0; j<4; j++){
-			if(p[i][j]==2048){
+	for( int i = 0 ; i < 4 ; i++ ) {
+		for( int j = 0; j < 4; j++ ) {
+			if( p[i][j] >= 2048 ) {
 				return true;
 			}
 		}

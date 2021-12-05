@@ -640,24 +640,26 @@ int game(SDL_Renderer * renderer){
                 default:
                     break;
                 }
-                if (estGagnant(plateau.plateau)){
-                    int best_score = transfertFichier(0, 0, 1)[2];
-                    if (score(plateau) > best_score){
-                        transfertFichier(0, score(plateau), 2);
-                        transfertFichier(2, score(plateau), 2);
+                if (estTermine(plateau.plateau)){
+                    if (estGagnant(plateau.plateau)){
+                        int best_score = transfertFichier(0, 0, 1)[2];
+                        if (score(plateau) > best_score){
+                            transfertFichier(0, score(plateau), 2);
+                            transfertFichier(2, score(plateau), 2);
+                        } else {
+                            transfertFichier(0, score(plateau), 2);
+                        }
+                        return 3;
                     } else {
-                        transfertFichier(0, score(plateau), 2);
-                    }
-                    return 3;
-                } else if (estTermine(plateau.plateau)){
-                    int best_score = transfertFichier(0, 0, 1)[2];
-                    if (score(plateau) > best_score){
-                        transfertFichier(0, score(plateau), 2);
-                        transfertFichier(2, score(plateau), 2);
-                    } else {
-                        transfertFichier(0, score(plateau), 2);
-                    }
-                    return 4;
+                        int best_score = transfertFichier(0, 0, 1)[2];
+                        if (score(plateau) > best_score){
+                            transfertFichier(0, score(plateau), 2);
+                            transfertFichier(2, score(plateau), 2);
+                        } else {
+                            transfertFichier(0, score(plateau), 2);
+                        }
+                        return 4;
+                    } 
                 }
             }
         } else if (e.type == SDL_KEYUP){
