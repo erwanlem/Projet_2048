@@ -1,4 +1,3 @@
-#include <iostream>
 #include <vector>
 #include <assert.h>
 #include <cmath>
@@ -7,7 +6,11 @@
 
 
 /** Fonction plateauVide
- * créée un plateau de jeu vide
+ * création d'un plateau de jeu vide
+ * @author Erwan Lemattre
+ * @bug fonction testée
+ *      Confiance: 10/10
+ * 
  * @return le plateau de type Plateau
  **/
 Plateau plateauVideVariante(){
@@ -26,6 +29,9 @@ Plateau plateauVideVariante(){
 /** Fonction ajouteDeuxOuQuatre
  * Permet de choisir aléatoirement une case vide dans
  * le plateau et d'y ajouter soit 2, soit 4
+ * @author Erwan Lemattre
+ * @bug fonction testée, pas de bug repéré
+ *      Confiance: 9.5/10
  * 
  * @param plateau le plateau à modifier
  * @return le plateau avec une nouvelle case remplie
@@ -47,6 +53,9 @@ Plateau ajouteDeux(Plateau plateau){
 /** Fonction score
  * Permet de calculer le score d'un plateau donné
  * Utilise la variable globale QUATRE
+ * @author Erwan Lemattre
+ * @bug fonction testée, pas de bug repéré
+ *      Confiance: 8/10
  * 
  * @param plateau la grille de jeu
  * @param quatre le nombre de quatre ajoutés au hasard par tireDeuxOuQuatre
@@ -75,6 +84,11 @@ int scoreVariante(Plateau plateau){
 
 /** Fonction plateauInitial
  * Initialise le plateau
+ * @author Erwan Lemattre
+ * @bug fonction testée, pas de bug repéré
+ *      Confiance: 9.5/10
+ * 
+ * 
  * @param plateau le plateau de jeu vide
  * @return le plateau de jeu initialisé
 */
@@ -90,6 +104,10 @@ Plateau plateauInitialVariante(){
 
 /** Fonction estGagnant 
  * vérifie si la partie est gagnante
+ * @author Erwan Lemattre
+ * @bug fonction testée, pas de bug repéré
+ *      Confiance: 9.5/10
+ * 
  * @param p le plateau de jeu
  * @return true si la partie est gagnée, false sinon
  **/

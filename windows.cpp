@@ -3,6 +3,11 @@
 
 /**
  * Affiche fenêtre de victoire
+ * @author Erwan Lemattre
+ * @bug    Fonction difficilement testable par une autre fonction de test
+ *         Les tests sont donc effectués en interface graphique.
+ *         Pas de bug rencontré mais tous les cas ne peuvent pas forcément être traités.
+ *         Confiance: 7/10
  * 
  * @param renderer la zone de rendu
  * @param game la partie jouée précédemment (-> personnalisation de l'affichage en fonction)
@@ -153,6 +158,11 @@ int victoire(SDL_Renderer * renderer, int game){
 
 /**
  * Affiche fenêtre de défaite
+ * @author Erwan Lemattre
+ * @bug    Fonction difficilement testable par une autre fonction de test
+ *         Les tests sont donc effectués en interface graphique.
+ *         Pas de bug rencontré mais tous les cas ne peuvent pas forcément être traités.
+ *         Confiance: 7/10
  * 
  * @param renderer la zone de rendu
  * @return int le code de la prochaine fenêtre à afficher
@@ -300,6 +310,11 @@ int defaite(SDL_Renderer * renderer, int game){
 
 /**
  * Fonction création du menu
+ * @author Erwan Lemattre
+ * @bug    Fonction difficilement testable par une autre fonction de test
+ *         Les tests sont donc effectués en interface graphique.
+ *         Pas de bug rencontré mais tous les cas ne peuvent pas forcément être traités.
+ *         Confiance: 7/10
  * 
  * @param renderer la zone de rendu
  * @return int un entier correspondant à l'action à affectuer à la fin de cette fonction
@@ -479,6 +494,11 @@ int menu(SDL_Renderer * renderer, SDL_Window * window){
 
 /**
  * Fonction de jeu
+ * @author Erwan Lemattre
+ * @bug    Fonction difficilement testable par une autre fonction de test
+ *         Les tests sont donc effectués en interface graphique.
+ *         Pas de bug rencontré mais tous les cas ne peuvent pas forcément être traités.
+ *         Confiance: 7/10
  * 
  * @param renderer la zone de dessin
  * @return int un entier correspondant à l'action à affectuer à la fin de la fonction
@@ -757,7 +777,11 @@ int game(SDL_Renderer * renderer){
 
 /**
  * Fonction du jeu 128 chrono !
- * 
+ * @bug    Fonction difficilement testable par une autre fonction de test
+ *         Les tests sont donc effectués en interface graphique.
+ *         Pas de bug rencontré mais tous les cas ne peuvent pas forcément être traités.
+ *         Confiance: 7/10
+
  * @param renderer la zone de dessin
  * @return int un entier correspondant à l'action à affectuer à la fin de la fonction
  */
