@@ -6,10 +6,9 @@
 
 using namespace std;
 
-/** Fonction plateauVide
- * créée un plateau de jeu vide
- * @return le plateau de type Plateau
- **/
+
+
+
 Plateau plateauVide(){
 	Plateau plateau;
 	plateau = {
@@ -24,11 +23,6 @@ Plateau plateauVide(){
 
 
 
-/** Fonction TireDeuxOuQuatre
- * Fonction renvoyant 2 avec une proba de 8/10 ou 4 avec une proba de 2/10
- * 
- * @return un entier: soit 2, soit 4
- **/
 int tireDeuxOuQuatre(){
     int i;
     i = rand()%10;
@@ -42,13 +36,8 @@ int tireDeuxOuQuatre(){
 
 
 
-/** Fonction ajouteDeuxOuQuatre
- * Permet de choisir aléatoirement une case vide dans
- * le plateau et d'y ajouter soit 2, soit 4
- * 
- * @param plateau le plateau à modifier
- * @return le plateau avec une nouvelle case remplie
- **/
+
+
 Partie ajouteDeuxOuQuatre(Partie plateau){
     int a, b;
     a = rand()%4;
@@ -66,12 +55,8 @@ Partie ajouteDeuxOuQuatre(Partie plateau){
 
 
 
-/** Fonction deplacementGauche
- * Déplacement du plateau vers la gauche
- * 
- * @param plateau de type Plateau, le plateau de jeu
- * @return plateau de type plateau déplacé vers la gauche
- **/
+
+
 Plateau deplacementGauche(Plateau plateau){
     for (int i = 0; i < plateau.size(); i++){
         for (int j = 0; j < plateau[i].size() - 1; j++){
@@ -105,12 +90,8 @@ Plateau deplacementGauche(Plateau plateau){
 
 
 
-/** Fonction deplacementDroite
- * Déplacement du plateau vers la droite
- * 
- * @param plateau de type Plateau, le plateau de jeu
- * @return plateau de type plateau déplacé vers la droite
- **/
+
+
 Plateau deplacementDroite(Plateau plateau){
     for (int i = 0; i < plateau.size(); i++){
         for (int j = plateau[i].size() - 1; j > 0; j--){
@@ -144,12 +125,9 @@ Plateau deplacementDroite(Plateau plateau){
 
 
 
-/** Fonction deplacementBas
- * Déplacement du plateau vers le bas
- * 
- * @param plateau de type Plateau, le plateau de jeu
- * @return plateau de type plateau déplacé vers le bas
- **/
+
+
+
 Plateau deplacementBas(Plateau plateau){
     for (int i = 0; i < plateau.size(); i++){
         for (int j = plateau[i].size() - 1; j > 0; j--){
@@ -183,12 +161,8 @@ Plateau deplacementBas(Plateau plateau){
 
 
 
-/** Fonction deplacementHaut
- * Déplacement du plateau vers le haut
- * 
- * @param plateau de type Plateau, le plateau de jeu
- * @return plateau de type plateau déplacé vers le haut
- **/
+
+
 Plateau deplacementHaut(Plateau plateau){
     for (int i = 0; i < plateau.size(); i++){
         for (int j = 0; j < plateau[i].size() - 1; j++){
@@ -222,13 +196,9 @@ Plateau deplacementHaut(Plateau plateau){
 
 
 
-/** Fonction deplacement
- * Déplacement du plateau donné en fonction d'une direction donné
- * 
- * @param plateau de type Plateau, le plateau de jeu
- * @param direction un entier indiquant la direction dans laquelle bouger le plateau
- * @return plateau de type plateau déplacé vers le haut
- **/
+
+
+
 Plateau deplacement(Plateau plateau, int direction) {
   switch ( direction ) {
     case GAUCHE:
@@ -248,14 +218,9 @@ Plateau deplacement(Plateau plateau, int direction) {
 }
 
 
-/** Fonction score
- * Permet de calculer le score d'un plateau donné
- * Utilise la variable globale QUATRE
- * 
- * @param plateau la grille de jeu
- * @param quatre le nombre de quatre ajoutés au hasard par tireDeuxOuQuatre
- * @return int s le score obtenu pour la grille donné
- **/
+
+
+
 int score(Partie plateau){
     int s = 0;
     int mult, nbr_case;
@@ -278,11 +243,8 @@ int score(Partie plateau){
 
 
 
-/** Fonction plateauInitial
- * Initialise le plateau
- * @param plateau le plateau de jeu vide
- * @return le plateau de jeu initialisé
-*/
+
+
 Partie plateauInitial(){
     Partie plateau;
     plateau.plateau = plateauVide();
@@ -293,10 +255,8 @@ Partie plateauInitial(){
 
     
 
-/** Fonction afficheLignePLeine
- * Affiche une ligne pleine de "*"
- * @return une ligne de type string
- **/
+
+
 void afficheLignePleine(){
 	init_pair(1, COLOR_WHITE, COLOR_BLACK);
 	for(int i=0; i<25; i++){
@@ -308,11 +268,9 @@ void afficheLignePleine(){
 }
 
 
-/** Fonction afficheLigneNombre
- * Affiche une ligne de nombre et applique une couleur à chaque élément
- * @param line la ligne a traiter
- * @return une ligne de type string
-*/
+
+
+
 void afficheLigneNombre(vector<int> line){
     init_color(20, 1000, 500, 0);
     init_color(21, 1000, 0, 1000);
@@ -372,11 +330,6 @@ void afficheLigneNombre(vector<int> line){
 
 
 
-/**
- * Vérifie si la partie est terminée
- * @param plateau le plateau de jeu
- * @return true si la partie est terminée, false sinon
-*/
 bool estTermine(Plateau p){
 	for (int i=0; i<4; i++){
 		for(int j=0; j<4; j++){
@@ -410,11 +363,8 @@ bool estTermine(Plateau p){
 
 
 
-/** Fonction estGagnant 
- * vérifie si la partie est gagnante
- * @param p le plateau de jeu
- * @return true si la partie est gagnée, false sinon
- **/
+
+
 bool estGagnant(Plateau p){
 	for(int i=0; i<4; i++){
 		for(int j=0; j<4; j++){
@@ -427,12 +377,9 @@ bool estGagnant(Plateau p){
 }
 
 
-/** Fonction estRempli 
- * Vérifie si la grille est pleine
- * @param plateau le plateau de jeu
- * 
- * @return true si le grille est pleine, false sinon
- **/ 
+
+
+
 bool estRempli(Plateau plateau){
     for (int i = 0; i < 4; i++){
         for (int j = 0; j < 4; j++){
@@ -446,10 +393,8 @@ bool estRempli(Plateau plateau){
 
 
 
-/**
- * Affiche le plateau de jeu
- * @param plateau le plateau de jeu
- **/
+
+
 void dessine(Plateau plateau){
     printw("\t");
 	afficheLignePleine();
@@ -625,6 +570,9 @@ void testPlateauVide(){
 	assert(plateauVide()==plt3);
 }
 
+/**
+ * Test de la fonction score
+ */
 void testScore(){
     Partie plt1;
     plt1.plateau = {{4,0,0,0},{0,0,0,4},{0,0,0,0},{0,0,0,4}};
