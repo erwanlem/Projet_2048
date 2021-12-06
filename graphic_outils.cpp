@@ -4,32 +4,13 @@
 #include <fstream>
 #include <assert.h>
 
-/**
- * @brief renvoie une valeur correspondant au poucentage d'une valeur donnée
- * @author Erwan Lemattre
- * @bug Fonction testée, pas de bug repéré
- *      Confiance: 9.5/10
- * 
- * @param p un entier, pourcentage désiré 
- * @param size un entier, l'élément dont on veut p%
- * @return int p% de size
- **/
+
 int pourcentage(int p, int size){
     return (int)(p * size / 100);
 }
 
 
-/**
- * @brief Permet d'échanger les données avec le fichier data
- * @author Erwan Lemattre
- * @bug Fonction non testée. Tests affectués en interface graphique (en jeu), pas de bug repéré
- *      Confiance: 9/10
- * 
- * @param cat la catégorie de la donnée en écriture (0: score, 1: temps, 2: meilleurs score, 3: meilleurs temps)
- * @param data la donnée à ajouter
- * @param action 1 pour lire le fichier, 2 pour écrire
- * @return vector<int> les données lu ou les nouvelles données modifiées
- */
+
 vector<int> transfertFichier(int cat, int data, int action){
     vector<int> read;
     read = vector<int>(4);
@@ -68,18 +49,7 @@ vector<int> transfertFichier(int cat, int data, int action){
 
 
 
-/**
- * @brief verifie si (x, y) est sur le rectangle
- * @author Erwan Lemattre
- * @bug Fonction testée, pas de problème repéré
- *      Confiance: 9.5/10
- * 
- * @param btn le rectangle
- * @param x un entier, la position x
- * @param y un entier, la position y
- * @return true si (x, y) est sur le rectangle
- * @return false si (x, y) n'est pas sur le rectangle
- */
+
 bool touche_bouton(SDL_Rect btn, int x, int y){
     if (x >= btn.x && x <= (btn.x + btn.w) && y >= btn.y && y <= (btn.y + btn.h)){
         return true;
@@ -90,18 +60,7 @@ bool touche_bouton(SDL_Rect btn, int x, int y){
 
 
 
-/**
- * Créer une texture d'un texte
- * @author Erwan Lemattre
- * @bug Fonction non testée (tests difficilement réalisables), pas de problème repéré
- *      Confiance: 9/10
- * 
- * @param renderer la zone de rendu
- * @param text le texte à afficher
- * @param color couleur du texte
- * @param font_size taille du texte (plus élevée = meilleurs qualité)
- * @return SDL_Texture* la texture finale
- */
+
 SDL_Texture * create_text(SDL_Renderer * renderer, char * text, SDL_Color color, int font_size){
     TTF_Font * font = NULL;
     font = TTF_OpenFont("font/Roboto-Bold.ttf", font_size);
@@ -114,32 +73,9 @@ SDL_Texture * create_text(SDL_Renderer * renderer, char * text, SDL_Color color,
 }
 
 
-/**
- * Créer une texture d'un texte
- * @author Erwan Lemattre
- * @bug Fonction non testée (tests difficilement réalisables), pas de problème repéré
- *      Confiance: 9/10
- * 
- * @param renderer la zone de rendu
- * @param text le texte à afficher
- * @param color couleur du texte
- * @param font_size taille du texte (plus élevée = meilleurs qualité)
- * @return SDL_Texture* la texture finale
- */
 
 
 
-
-/** 
- * Génère le tableau contenant les coordonnées des cubes du titre
- * @author Erwan Lemattre
- * @bug Pas de problème repéré
- *      Confiance: 10/10
- * 
- * @param pourcentage_x un entier correspondant à la marge à gauche
- * @param taille_block une entier donnant la taille des cubes
- * @return le vecteur contenant les blocks
-**/
 vector<vector<int>> titre_menu(int pourcentage_x, int taille_block){
 
     vector<vector<int>> titre = {
@@ -202,18 +138,7 @@ vector<vector<int>> titre_menu(int pourcentage_x, int taille_block){
 
 
 
-/**
- * @brief transforme le vecteur plateau en un vecteur de textures à afficher à l'écran
- * @author Erwan Lemattre
- * @bug Pas de problème repéré
- *      Confiance: 8.5/10
- * 
- * @param renderer la zone de rendu
- * @param plateau le plateau de jeu
- * @param color la coulleur du texte à l'écran
- * @param textureTextTable le tableau contenant les textures (à modifier)
- * @return vector<SDL_Texture*> le tableau de textures modifié
- */
+
 vector<SDL_Texture*> textFromPlateau(SDL_Renderer * renderer, Plateau plateau, SDL_Color color, vector<SDL_Texture*> textureTextTable){
     int x = 0, y = 0;
     string plt_str;
