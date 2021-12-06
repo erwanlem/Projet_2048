@@ -172,7 +172,7 @@ bool estGagnant(Plateau plateau);
 
 /** Fonction score
  * Permet de calculer le score d'un plateau donné
- * Utilise la variable globale QUATRE
+ * 
  * @author Erwan Lemattre
  * @bug fonction testée, quelques problèmes sur les premières versions,
  *      corrigés pas d'erreurs rencontrées
