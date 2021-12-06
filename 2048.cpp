@@ -1,4 +1,3 @@
-#include <iostream>
 #include <time.h>
 #include "modele.h"
 #include <ncurses.h>
