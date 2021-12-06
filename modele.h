@@ -36,6 +36,7 @@ struct Partie
 
 /** Fonction plateauVide
  * créée un plateau de jeu vide
+ * 
  * @return le plateau de type Plateau
  **/
 Plateau plateauVide();
@@ -53,7 +54,10 @@ Partie plateauInitial();
 
 
 /** Fonction TireDeuxOuQuatre
+ * 
  * @author Erwan Lemattre
+ * @bug fonction testée, pas de difficulté rencontrée
+ *      Confiance: 10/10
  * 
  * Fonction renvoyant 2 avec une proba de 8/10 ou 4 avec une proba de 2/10
  * 
@@ -71,6 +75,8 @@ int tireDeuxOuQuatre();
  * struct Partie est incrémentée
  * 
  * @author Erwan Lemattre
+ * @bug Fonction testée, pas de difficulté rencontrée
+ *      Confiance: 10/10
  * 
  * @param plateau de type Partie, contient le plateau et les quatres
  * @return le plateau avec une nouvelle case remplie
@@ -82,7 +88,10 @@ Partie ajouteDeuxOuQuatre(Partie plateau);
 
 /** Fonction deplacementGauche
  * Déplacement du plateau vers la gauche
+ * 
  * @author Erwan Lemattre
+ * @bug Fonction testée, première version avec un bug, corrigé
+ *      Confiance: 8.5/10
  * 
  * @param plateau de type Plateau, le plateau de jeu
  * @return plateau de type plateau déplacé vers la gauche
@@ -94,7 +103,10 @@ Plateau deplacementGauche(Plateau plateau);
 
 /** Fonction deplacementDroite
  * Déplacement du plateau vers la droite
+ * 
  * @author Erwan Lemattre
+ * @bug Fonction testée, première version avec un bug, corrigé
+ *      Confiance: 8.5/10
  * 
  * @param plateau de type Plateau, le plateau de jeu
  * @return plateau de type plateau déplacé vers la droite
@@ -106,7 +118,10 @@ Plateau deplacementDroite(Plateau plateau);
 
 /** Fonction deplacementHaut
  * Déplacement du plateau vers le haut
+ * 
  * @author Erwan Lemattre
+ * @bug Fonction testée, première version avec un bug, corrigé
+ *      Confiance: 8.5/10
  * 
  * @param plateau de type Plateau, le plateau de jeu
  * @return plateau de type plateau déplacé vers le haut
@@ -118,7 +133,10 @@ Plateau deplacementHaut(Plateau plateau);
 
 /** Fonction deplacementBas
  * Déplacement du plateau vers le bas
+ * 
  * @author Erwan Lemattre
+ * @bug Fonction testée, première version avec un bug, corrigé
+ *      Confiance: 8.5/10
  * 
  * @param plateau de type Plateau, le plateau de jeu
  * @return plateau de type plateau déplacé vers le bas
@@ -131,6 +149,7 @@ Plateau deplacementBas(Plateau plateau);
 /** Fonction deplacement
  * Déplacement du plateau donné en fonction d'une direction donné
  * @author Fonction du projet
+ * @bug Fonction du projet
  * 
  * @param plateau de type Plateau, le plateau de jeu
  * @param direction un entier indiquant la direction dans laquelle bouger le plateau
@@ -165,6 +184,9 @@ bool estGagnant(Plateau plateau);
  * Permet de calculer le score d'un plateau donné
  * Utilise la variable globale QUATRE
  * @author Erwan Lemattre
+ * @bug fonction testée, quelques problèmes sur les premières versions,
+ *      corrigés pas d'erreurs rencontrées
+ *      Confiance: 8/10
  * 
  * @param plateau de type Partie, contient le plateau et les quatres
  * @return int s le score obtenu pour la grille donné
@@ -177,6 +199,8 @@ int score(Partie plateau);
 /** Fonction estRempli 
  * Vérifie si la grille est pleine
  * @author Erwan Lemattre
+ * @bug Fonction testée, pas de difficulté rencontrée
+ *      Confiance: 10/10
  * 
  * @param plateau le plateau de jeu
  * @return true si le grille est pleine, false sinon
