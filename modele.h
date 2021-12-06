@@ -25,8 +25,21 @@ Plateau deplacementHaut(Plateau plateau);
 Plateau deplacementBas(Plateau plateau);
 Plateau deplacement(Plateau plateau, int direction);
 
+
+/**
+ * Affiche le plateau de jeu
+ * @param plateau le plateau de jeu
+ **/
 void dessine(Plateau plateau);
+
+
+/**
+ * Vérifie si la partie est terminée
+ * @param plateau le plateau de jeu
+ * @return true si la partie est terminée, false sinon
+*/
 bool estTermine(Plateau plateau);
+
 bool estGagnant(Plateau plateau);
 int score(Partie plateau);
 bool estRempli(Plateau plateau);

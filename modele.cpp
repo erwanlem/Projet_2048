@@ -309,7 +309,7 @@ void afficheLignePleine(){
 
 
 /** Fonction afficheLigneNombre
- * Affiche une ligne de nombre
+ * Affiche une ligne de nombre et applique une couleur à chaque élément
  * @param line la ligne a traiter
  * @return une ligne de type string
 */
