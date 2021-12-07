@@ -2,7 +2,7 @@
 Création du jeu 2048
 
 
----> Niveau 3 <---
+**---> Niveau 3 <---**
 
 Utilisation des librairies:
   - SDL2
@@ -19,7 +19,7 @@ Installation des librairies:
       sudo apt install libfreetype-dev libfreetype6
     
  
- COMPILATION (MANUELLE):
+ **COMPILATION (MANUELLE):**
  
   1. g++ -c variante.cpp
   2. g++ -c graphic_outils.cpp
@@ -29,10 +29,13 @@ Installation des librairies:
   6. g++ main.o modele.o windows.o variante.o graphic_outils.o -lSDL2_ttf -lSDL2 -lSDL2main -o 2048
   
  
- COMPILATION MAKEFILE:
+ **COMPILATION MAKEFILE:**
  
  Utilisatin de la commande 'make' -> création de l'executable '2048'
  
+ 
+ 
+ Toutes les fonctions de test sont écrites par l'auteur de la fonction de base (sauf indication).
  
  Fichiers associés au niveau 3:
     
