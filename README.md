@@ -18,3 +18,10 @@ Création du jeu 2048
 
 
 * Toutes les fonctions de test sont écrites par l'auteur de la fonction de base (sauf indication).
+
+### Fichiers associés au niveau 2:
+
+    modele.cpp:
+             Contient toutes les fonctions de base du jeu
+    2048.cpp  :
+             Fichier contenant la fonction main permettant de faire fonctionner le jeu
