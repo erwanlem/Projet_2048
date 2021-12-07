@@ -2,7 +2,7 @@
 Création du jeu 2048
 
 
-**---> Niveau 2 <---**
+## Niveau 2
 
 Fichiers similaires à ceux du niveau 1.
 Ajout d'un fichier makefile
