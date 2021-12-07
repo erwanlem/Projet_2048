@@ -3,7 +3,7 @@ Création du jeu 2048
 
 ## Niveau 1
 
- -> utilisation de la librairie ncurses
+* utilisation de la librairie ncurses
 
 Installation librairie(s):
   ncurses:
