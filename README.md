@@ -21,7 +21,9 @@ Création du jeu 2048
 
 ### Fichiers associés au niveau 1:
 
-    modele.cpp:
+    modele.cpp :
              Contient toutes les fonctions de base du jeu
+    modele.h :
+          Contient les en-têtes des fonctions implentées ainsi que leur documentation
     2048.cpp  :
              Fichier contenant la fonction main permettant de faire fonctionner le jeu
