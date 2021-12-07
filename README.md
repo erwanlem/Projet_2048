@@ -4,7 +4,7 @@ Création du jeu 2048
 
 ## Niveau 3 
 
-Utilisation des librairies:
+Librairies nécessaires:
   - SDL2
   - SDL_ttf 2.0
     -> L'utilisation de la librairies SDL_ttf peut nécessiter également celle
