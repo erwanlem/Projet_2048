@@ -2,7 +2,7 @@
 Création du jeu 2048
 
 
-##---> Niveau 3 <---
+## Niveau 3 
 
 Utilisation des librairies:
   - SDL2
