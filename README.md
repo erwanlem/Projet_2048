@@ -5,13 +5,14 @@ Création du jeu 2048
 ## Niveau 2
 
 Fichiers similaires à ceux du niveau 1.
-Ajout d'un fichier makefile
+Ajout d'un fichier makefile  
 
--> Utilisation de la librairie ncurses
 
-Installation librairie(s):
-  ncurses:
-      sudo apt-get install libncurses5-dev
+* Utilisation de la librairie ncurses
+
+**Installation librairie(s):**
+  * ncurses:  
+  sudo apt-get install libncurses5-dev
 
 **COMPILATION (MANUELLE):**
   
@@ -24,4 +25,4 @@ Installation librairie(s):
   Utiliser commande 'make' -> création d'un executable '2048'
   
  
- Toutes les fonctions de test sont écrites par l'auteur de la fonction de base (sauf indication).
+ * Toutes les fonctions de test sont écrites par l'auteur de la fonction de base (sauf indication).
