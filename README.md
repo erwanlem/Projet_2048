@@ -33,5 +33,7 @@ Ajout d'un fichier makefile
              Contient toutes les fonctions de base du jeu
     2048.cpp  :
              Fichier contenant la fonction main permettant de faire fonctionner le jeu
+    modele.h :
+             Contient les en-têtes des fonctions implentées ainsi que leur documentation
     makefile  :
              Instructions de compilation avec la commande make
