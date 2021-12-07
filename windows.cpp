@@ -10,7 +10,7 @@
  *         Confiance: 7/10
  * 
  * @param renderer la zone de rendu
- * @param game la partie jouée précédemment (-> personnalisation de l'affichage en fonction)
+ * @param game un entier identifiant le mode de jeu d'où l'on vient (1 = 2048, sinon variante)
  * @return int le code de la prochaine fenêtre à afficher
  */
 int victoire(SDL_Renderer * renderer, int game){
@@ -21,10 +21,13 @@ int victoire(SDL_Renderer * renderer, int game){
     char play[]     = "Rejouer";
     char menu[]     = "Menu";
     char quit[]     = "Quitter";
-
     string mainStat = "Score: 0";
     string bestStat = "Meilleurs score: 0";
-    int m, s, ms, t;
+
+
+    int m, s, ms, t; // Variables du chrono
+
+    // Modification l'affichage en fonction du mode de jeu
     if (game == 1){
         mainStat = "Score: " + to_string(transfertFichier(0, 0, 1)[0]);
         bestStat = "Record: " + to_string(transfertFichier(0, 0, 1)[2]);
@@ -44,6 +47,7 @@ int victoire(SDL_Renderer * renderer, int game){
     char const* mainStatChar = mainStat.c_str();
     char const* bestStatChar = bestStat.c_str();
 
+
     // Message principal
     SDL_Texture * main_text_txt = create_text(renderer, victoire, gold, 100);
     SDL_Rect main_rect          = { (WIDTH/2) - (pourcentage(46, WIDTH)/2), (HEIGHT/3) - pourcentage(20, HEIGHT), pourcentage(46, WIDTH), pourcentage(20, HEIGHT)};
@@ -55,14 +59,17 @@ int victoire(SDL_Renderer * renderer, int game){
     SDL_Texture * best_stat_txt = create_text(renderer, (char*)bestStatChar, white, 100);
 
     // Boutons affichés à l'écran
+    // Jouer
     SDL_Rect play_rect    = { (WIDTH/10)*7 - (pourcentage(10, WIDTH)/2) - 10, pourcentage(70, HEIGHT) - 5, pourcentage(10, WIDTH) + 20, pourcentage(8, HEIGHT) + 10};
     SDL_Rect play_rect_txt = { (WIDTH/10)*7 - (pourcentage(10, WIDTH)/2), pourcentage(70, HEIGHT), pourcentage(10, WIDTH), pourcentage(8, HEIGHT)};
     SDL_Texture * play_txt = create_text(renderer, play, white, 100);
 
+    // Menu
     SDL_Rect menu_rect     = { (WIDTH/10)*5 - (pourcentage(10, WIDTH)/2) - 10, pourcentage(70, HEIGHT) - 5, pourcentage(10, WIDTH) + 20, pourcentage(8, HEIGHT) + 10};
     SDL_Rect menu_rect_txt = { (WIDTH/10)*5 - (pourcentage(10, WIDTH)/2), pourcentage(70, HEIGHT), pourcentage(10, WIDTH), pourcentage(8, HEIGHT)};
     SDL_Texture * menu_txt = create_text(renderer, menu, white, 100);
 
+    // Quitter le jeu
     SDL_Rect quit_rect     = { (WIDTH/10)*3 - (pourcentage(10, WIDTH)/2) - 10, pourcentage(70, HEIGHT) - 5, pourcentage(10, WIDTH) + 20, pourcentage(8, HEIGHT) + 10};
     SDL_Rect quit_rect_txt = { (WIDTH/10)*3 - (pourcentage(10, WIDTH)/2), pourcentage(70, HEIGHT), pourcentage(10, WIDTH), pourcentage(8, HEIGHT)};
     SDL_Texture * quit_txt = create_text(renderer, quit, white, 100);
@@ -103,7 +110,7 @@ int victoire(SDL_Renderer * renderer, int game){
                     return 5;
                 }
             }
-        } else if (e.type == SDL_MOUSEMOTION){
+        } else if (e.type == SDL_MOUSEMOTION){  // changement de couleur des boutons si la souris est au-dessus
             if (touche_bouton(play_rect, e.motion.x, e.motion.y)){
                 btn1_color = button_over_default_color;
             } else {
@@ -124,6 +131,7 @@ int victoire(SDL_Renderer * renderer, int game){
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
+        // Rendu des boutons (rectangles) et mise en couleur
         SDL_SetRenderDrawColor(renderer, btn1_color.r, btn1_color.g, btn1_color.b, 255);
         SDL_RenderFillRect(renderer, &play_rect);
         SDL_SetRenderDrawColor(renderer, btn2_color.r, btn2_color.g, btn2_color.b, 255);
@@ -131,6 +139,7 @@ int victoire(SDL_Renderer * renderer, int game){
         SDL_SetRenderDrawColor(renderer, btn3_color.r, btn3_color.g, btn3_color.b, 255);
         SDL_RenderFillRect(renderer, &quit_rect);
 
+        // On ajoute le texte à l'écran
         SDL_RenderCopy(renderer, main_text_txt, NULL, &main_rect);
         SDL_RenderCopy(renderer, play_txt, NULL, &play_rect_txt);
         SDL_RenderCopy(renderer, menu_txt, NULL, &menu_rect_txt);
@@ -165,6 +174,7 @@ int victoire(SDL_Renderer * renderer, int game){
  *         Confiance: 7/10
  * 
  * @param renderer la zone de rendu
+ * @param game un entier identifiant le mode de jeu d'où l'on vient (1 = 2048, sinon variante)
  * @return int le code de la prochaine fenêtre à afficher
  */
 int defaite(SDL_Renderer * renderer, int game){
@@ -182,14 +192,17 @@ int defaite(SDL_Renderer * renderer, int game){
 
 
     // Boutons affichés à l'écran
+    // Jouer
     SDL_Rect play_rect     = { (WIDTH/10)*7 - (pourcentage(10, WIDTH)/2) - 10, pourcentage(70, HEIGHT) - 5, pourcentage(10, WIDTH) + 20, pourcentage(8, HEIGHT) + 10};
     SDL_Rect play_rect_txt = { (WIDTH/10)*7 - (pourcentage(10, WIDTH)/2), pourcentage(70, HEIGHT), pourcentage(10, WIDTH), pourcentage(8, HEIGHT)};
     SDL_Texture * play_txt = create_text(renderer, play, white, 100);
 
+    //Menu
     SDL_Rect menu_rect     = { (WIDTH/10)*5 - (pourcentage(10, WIDTH)/2) - 10, pourcentage(70, HEIGHT) - 5, pourcentage(10, WIDTH) + 20, pourcentage(8, HEIGHT) + 10};
     SDL_Rect menu_rect_txt = { (WIDTH/10)*5 - (pourcentage(10, WIDTH)/2), pourcentage(70, HEIGHT), pourcentage(10, WIDTH), pourcentage(8, HEIGHT)};
     SDL_Texture * menu_txt = create_text(renderer, menu, white, 100);
 
+    // Quitter le jeu
     SDL_Rect quit_rect = { (WIDTH/10)*3 - (pourcentage(10, WIDTH)/2) - 10, pourcentage(70, HEIGHT) - 5, pourcentage(10, WIDTH) + 20, pourcentage(8, HEIGHT) + 10};
     SDL_Rect quit_rect_txt = { (WIDTH/10)*3 - (pourcentage(10, WIDTH)/2), pourcentage(70, HEIGHT), pourcentage(10, WIDTH), pourcentage(8, HEIGHT)};
     SDL_Texture * quit_txt = create_text(renderer, quit, white, 100);
@@ -199,6 +212,8 @@ int defaite(SDL_Renderer * renderer, int game){
     SDL_Texture * stat_txt;
     SDL_Rect best_stat_rect_txt;
     SDL_Texture * best_stat_txt;
+
+    // Modification l'affichage en fonction du mode de jeu
     if (game == 1){
         string mainStat = "Score: 0";
         string bestStat = "Meilleurs score: 0";
