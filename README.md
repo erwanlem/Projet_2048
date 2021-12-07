@@ -10,13 +10,13 @@ Librairies nécessaires:
     -> L'utilisation de la librairies SDL_ttf peut nécessiter également celle
         de la librairie freetype6 (voir loir de l'installation)
 
-Installation des librairies:
-  SDL2:
-      sudo apt install libsdl2-dev
-  SDL_ttf:
-      sudo apt install libsdl2-ttf-dev
-  freetype6 (pour SDL_ttf):
-      sudo apt install libfreetype-dev libfreetype6
+Installation des librairies:  
+* SDL2:  
+sudo apt install libsdl2-dev  
+* SDL_ttf:  
+sudo apt install libsdl2-ttf-dev  
+* freetype6 (pour SDL_ttf):  
+sudo apt install libfreetype-dev libfreetype6
     
  
  **COMPILATION (MANUELLE):**
