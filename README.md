@@ -1,7 +1,7 @@
 # Projet_2048
 Création du jeu 2048
 
-**---> Niveau 1 <---**
+## Niveau 1
 
  -> utilisation de la librairie ncurses
 
