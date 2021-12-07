@@ -7,7 +7,7 @@ Création du jeu 2048
 
 Installation librairie(s):
   ncurses:  
-  sudo apt-get install libncurses5-dev
+          sudo apt-get install libncurses5-dev
       
 **COMPILATION:**
 
