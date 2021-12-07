@@ -2,7 +2,7 @@
 Création du jeu 2048
 
 
-**---> Niveau 3 <---**
+##---> Niveau 3 <---
 
 Utilisation des librairies:
   - SDL2
@@ -37,7 +37,7 @@ Installation des librairies:
  
  Toutes les fonctions de test sont écrites par l'auteur de la fonction de base (sauf indication).
  
- Fichiers associés au niveau 3:
+ ###Fichiers associés au niveau 3:
     
     main.cpp :
           Fonction principale de l'interface graphique. Contient la fonction main qui gère le passage d'une fenêtre du jeu à une autre.
