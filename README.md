@@ -3,6 +3,15 @@ Création du jeu 2048
 
 ## Mise en place du joueur automatique
 
+**COMPILATION (MANUELLE):**
+  
+  1. g++ -c 2048_IA.cpp
+  2. g++ -c modeleIA.cpp
+  3. g++ modeleIA.o 2048_IA.o -o 2048_IA
+
+**COMPILATION MAKEFILE:**
+ 
+  Utiliser commande 'make' -> création d'un executable '2048_IA'
 
 ### Fichiers associés au jouuer automatique:
 
