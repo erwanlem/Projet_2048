@@ -12,3 +12,5 @@ Création du jeu 2048
           Contient les en-têtes des fonctions implentées ainsi que leur documentation
     2048_IA.cpp  :
              Fichier contenant la fonction main permettant de faire fonctionner le jeu
+    makefile:
+            Fichier permettant la compilation automatiquement.
