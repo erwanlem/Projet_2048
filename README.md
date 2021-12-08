@@ -13,7 +13,7 @@ Création du jeu 2048
  
   Utiliser commande 'make' -> création d'un executable '2048_IA'
 
-### Fichiers associés au jouuer automatique:
+### Fichiers associés au joueur automatique:
 
     modeleIA.cpp :
              Contient toutes les fonctions de base du jeu et du joueur automatique 
