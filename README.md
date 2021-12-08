@@ -4,7 +4,7 @@ Création du jeu 2048
 ## Mise en place du joueur automatique
 
 
-### Fichiers associés au jouauer automatique:
+### Fichiers associés au jouuer automatique:
 
     modeleIA.cpp :
              Contient toutes les fonctions de base du jeu et du joueur automatique 
